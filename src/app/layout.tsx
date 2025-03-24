@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import { Inter, Fira_Code } from "next/font/google";
 import "./globals.css";
 
 import { Noto_Serif_Thai } from "next/font/google";
