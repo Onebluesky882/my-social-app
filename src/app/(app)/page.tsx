@@ -1,7 +1,14 @@
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "รวมโปรสล็อต",
+  description: "รวมโปรสล็อต",
+};
+
 const MainPage = () => {
   return (
     <div>
-      <h1>slot mvp social สายปั่น</h1>
+      <h1 className="bg-red-100">รวมโปรสล็อต</h1>
     </div>
   );
 };
