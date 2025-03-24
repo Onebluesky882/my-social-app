@@ -7,7 +7,7 @@ export const metadata: Metadata = {
 const promotion = () => {
   return (
     <div>
-      <h1>ทดลองเล่นสล็อตฟรี</h1>
+      <h1>ทดลองเล่นสล็อตฟรี รวมทุกค่าย ทดลองซื้อฟรีสปิน</h1>
     </div>
   );
 };
