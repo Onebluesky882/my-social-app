@@ -1,34 +1,16 @@
-import { Metadata } from "next";
-import { cookies } from "next/headers";
-import AuthServer from "./auth/auth-server";
-import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
+import Hero from "@/components/hero";
+import ConnectSupabaseSteps from "@/components/tutorial/connect-supabase-steps";
+import SignUpUserSteps from "@/components/tutorial/sign-up-user-steps";
+import { hasEnvVars } from "@/utils/supabase/check-env-vars";
 
-export const metadata: Metadata = {
-  title: "slot mvp",
-  description: "slot mvp",
-};
-
-export default async function Homepage() {
-  const cookiesStore = cookies();
-  const supabase = createServerComponentClient({
-    cookies: () => cookiesStore,
-  });
-  const {
-    data: { session },
-    error,
-  } = await supabase.auth.getSession();
-  if (error) {
-    console.error("Session error:", error.message);
-  }
-
-  const { data: posts } = await supabase.from("posts").select();
-
-  console.log("session : ", session);
+export default async function Home() {
   return (
-    <div>
-      <AuthServer />
-      {session && <pre>{JSON.stringify(posts, null, 2)}</pre>}
-      <h1>slotmvp</h1>
-    </div>
+    <>
+      <Hero />
+      <main className="flex-1 flex flex-col gap-6 px-4">
+        <h2 className="font-medium text-xl mb-4">Next steps</h2>
+        {hasEnvVars ? <SignUpUserSteps /> : <ConnectSupabaseSteps />}
+      </main>
+    </>
   );
 }

@@ -1,15 +1,21 @@
-import { createRouteHandlerClient } from "@supabase/auth-helpers-nextjs";
-import { NextResponse, type NextRequest } from "next/server";
-import { cookies } from "next/headers";
+import { createClient } from "@/utils/supabase/server";
+import { NextResponse } from "next/server";
 
-// path folder auth/callback/route.ts
-export async function GET(request: NextRequest) {
+export async function GET(request: Request) {
   const requestUrl = new URL(request.url);
   const code = requestUrl.searchParams.get("code");
+  const origin = requestUrl.origin;
+  const redirectTo = requestUrl.searchParams.get("redirect_to")?.toString();
 
   if (code) {
-    const supabase = createRouteHandlerClient({ cookies });
+    const supabase = await createClient();
     await supabase.auth.exchangeCodeForSession(code);
   }
-  return NextResponse.redirect(requestUrl.origin);
+
+  if (redirectTo) {
+    return NextResponse.redirect(`${origin}${redirectTo}`);
+  }
+
+  // URL to redirect to after sign up process completes
+  return NextResponse.redirect(`${origin}/protected`);
 }
