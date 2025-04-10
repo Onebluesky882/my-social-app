@@ -1,9 +1,10 @@
-import { createClient } from "@/utils/supabase/server";
+import { createServer } from "@/utils/supabase/server";
 import { InfoIcon } from "lucide-react";
+import next from "next";
 import { redirect } from "next/navigation";
 
 export default async function ProtectedPage() {
-  const supabase = await createClient();
+  const supabase = await createServer();
 
   const {
     data: { user },
@@ -12,7 +13,9 @@ export default async function ProtectedPage() {
   if (!user) {
     return redirect("/sign-in");
   }
-
+  if (user) {
+    return redirect("/");
+  }
   return (
     <div className="flex-1 w-full flex flex-col gap-12">
       <div className="w-full">

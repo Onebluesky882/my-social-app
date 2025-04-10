@@ -2,7 +2,7 @@ import { ModeToggle } from "./theme-switching";
 
 const Header = () => {
   return (
-    <div>
+    <div className="bg-amber-400">
       <ModeToggle />
     </div>
   );
