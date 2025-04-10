@@ -1,4 +1,3 @@
-import Header from "@/components/Header";
 import { createServer } from "@/utils/supabase/server";
 import Image from "next/image";
 
