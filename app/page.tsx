@@ -1,5 +1,5 @@
 import AddPost from "@/components/Addpost";
-import Feeds from "@/components/Feeds";
+import Feed from "@/components/Feeds";
 import LeftMenu from "@/components/LeftMenu";
 import RightMenu from "@/components/RightMenu";
 import Stories from "@/components/Stories";
@@ -21,7 +21,7 @@ export default async function Home() {
         <div className="">
           <Stories />
           <AddPost />
-          <Feeds />
+          <Feed />
         </div>
       </div>
       <div className="hidden xl:block w-[30%] outline-solid outline-red-500 ">
