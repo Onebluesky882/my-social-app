@@ -1,19 +1,11 @@
+"use client";
+import { Post } from "@/types/post-type";
+import { createClient } from "@/utils/supabase/client";
 import { Divide } from "lucide-react";
 import Image from "next/image";
+import { useEffect, useState } from "react";
 
-// condition
-const demoFeeds = Array.from({ length: 10 });
-const Feeds = () => {
-  return (
-    <div className="">
-      {demoFeeds.map((_feed, index) => (
-        <Feed key={index} />
-      ))}
-    </div>
-  );
-};
-
-const Feed = () => {
+const Feeds = ({ props }: { props: Post }) => {
   return (
     <div className="py-1">
       {/* user */}
@@ -28,7 +20,7 @@ const Feed = () => {
             width={40}
             className="rounded-full h-10 w-10 object-cover"
           />
-          <span className="font-medium">Liza Gree</span>
+          <span className="font-medium">{"props.title"}</span>
         </div>
         <span className=" text-2xl text-accent font-bold">...</span>
       </div>
@@ -57,53 +49,59 @@ const Feed = () => {
         </p>
       </div>
       {/* interaction */}
-      <div className="px-10 flex items-center  bg-accent p-1 rounded-sm justify-between text-sm">
-        <div className="flex  bg-accent gap-8 ">
-          <div className="flex  gap-4 rounded-2xl items-center">
-            <Image
-              src={"/like.png"}
-              alt="like"
-              width={16}
-              height={16}
-              className="cursor-pointer"
-            />
-            <span className="text-muted-foreground">|</span>
-            <span className="text-muted-foreground">
-              20
-              <span className="text-muted-foreground">Likes</span>
-            </span>
-          </div>
-          {/* here */}
-          <div className="flex items-center gap-4  rounded-2xl">
-            <Image
-              src={"/comment.png"}
-              alt="like"
-              width={16}
-              height={16}
-              className="cursor-pointer"
-            />
-            <span className="text-muted-foreground">|</span>
-            <span className="text-muted-foreground">
-              20
-              <span className="text-muted-foreground"> comments</span>
-            </span>
-          </div>
-        </div>
+      <FooterPost />
+    </div>
+  );
+};
 
-        <div className="flex items-center gap-4  rounded-2xl ">
+const FooterPost = () => {
+  return (
+    <div className="px-10 flex items-center  bg-accent p-1 rounded-sm justify-between text-sm">
+      <div className="flex  bg-accent gap-8 ">
+        <div className="flex  gap-4 rounded-2xl items-center">
           <Image
-            src={"/share.png"}
+            src={"/like.png"}
             alt="like"
             width={16}
             height={16}
             className="cursor-pointer"
           />
-          <span>|</span>
+          <span className="text-muted-foreground">|</span>
           <span className="text-muted-foreground">
             20
-            <span className="text-muted-foreground"> share</span>
+            <span className="text-muted-foreground">Likes</span>
           </span>
         </div>
+        {/* here */}
+        <div className="flex items-center gap-4  rounded-2xl">
+          <Image
+            src={"/comment.png"}
+            alt="like"
+            width={16}
+            height={16}
+            className="cursor-pointer"
+          />
+          <span className="text-muted-foreground">|</span>
+          <span className="text-muted-foreground">
+            20
+            <span className="text-muted-foreground"> comments</span>
+          </span>
+        </div>
+      </div>
+
+      <div className="flex items-center gap-4  rounded-2xl ">
+        <Image
+          src={"/share.png"}
+          alt="like"
+          width={16}
+          height={16}
+          className="cursor-pointer"
+        />
+        <span>|</span>
+        <span className="text-muted-foreground">
+          20
+          <span className="text-muted-foreground"> share</span>
+        </span>
       </div>
     </div>
   );

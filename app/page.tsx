@@ -1,5 +1,5 @@
 import AddPost from "@/components/Addpost";
-import Feed from "@/components/Feeds";
+import Feeds from "@/components/Feeds";
 import LeftMenu from "@/components/LeftMenu";
 import RightMenu from "@/components/RightMenu";
 import Stories from "@/components/Stories";
@@ -14,17 +14,23 @@ export default async function Home() {
 
   return (
     <div className="flex gap-6  ">
-      <div className="hidden xl:block outline-solid outline-red-500  outline-2 w-[20%] ">
+      <div className="hidden xl:block outline-solid  w-[20%] ">
         <LeftMenu />
       </div>
       <div className="w-full lg:w-[70%] xl:w-[50%]">
         <div className="">
           <Stories />
           <AddPost />
-          <Feed />
+          <Feeds
+            props={{
+              id: 0,
+              title: "",
+              content: "",
+            }}
+          />
         </div>
       </div>
-      <div className="hidden xl:block w-[30%] outline-solid outline-red-500 ">
+      <div className="hidden xl:block w-[30%] outline-solid  ">
         <RightMenu />
       </div>
     </div>
