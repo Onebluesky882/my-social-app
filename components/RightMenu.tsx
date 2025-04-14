@@ -1,4 +1,10 @@
+import FriendRequest from "./FriendRequest";
+
 const RightMenu = () => {
-  return <div>RightMenu</div>;
+  return (
+    <div>
+      <FriendRequest />
+    </div>
+  );
 };
 export default RightMenu;

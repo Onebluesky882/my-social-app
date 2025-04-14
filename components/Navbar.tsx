@@ -45,7 +45,7 @@ const Navbar = () => {
       {/* center */}
       <div className="  md:flex gap-4 ">
         {/* link */}
-        <nav className="flex gap-6 text-primary">
+        <nav className="flex gap-2 text-primary">
           <NavMenuProps
             href={"/"}
             image={{

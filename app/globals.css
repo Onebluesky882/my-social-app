@@ -70,6 +70,7 @@
     --chart-3: hsl(197, 37%, 24%);
     --chart-4: hsl(43, 74%, 66%);
     --chart-5: hsl(27, 87%, 67%);
+    --text: hsl(60, 1%, 14%);
   }
 
   .dark {
@@ -97,6 +98,7 @@
     --chart-3: hsl(30, 80%, 55%);
     --chart-4: hsl(280, 65%, 60%);
     --chart-5: hsl(340, 75%, 55%);
+    --text: hsl(60, 1%, 82%);
   }
 }
 @layer base {
@@ -105,6 +107,10 @@
   }
   body {
     @apply bg-background text-foreground;
+  }
+  p,
+  span {
+    color: var(--text);
   }
 }
 
