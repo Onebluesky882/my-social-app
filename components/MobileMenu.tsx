@@ -34,11 +34,11 @@ const MobileMenu = () => {
   }, [isMobile]);
 
   return (
-    <div>
+    <div className=" flex ">
       <div
         ref={buttonRef}
         onClick={menuHamburger}
-        className="flex flex-col cursor-pointer gap-[4.5px]"
+        className="flex flex-col cursor-pointer gap-[4.5px] relative z-50 "
       >
         <div
           className={`w-6 h-1 rounded-sm bg-primary ${
@@ -59,7 +59,7 @@ const MobileMenu = () => {
       {isMobile && (
         <div
           ref={menuRef}
-          className="flex flex-col items-center justify-center gap-8 font-medium absolute left-0 top-24 w-full h[calc(100vh-96px)] bg-card z-10"
+          className="fixed  inset-0 top-20 bg-card z-[999] flex flex-col items-center justify-center gap-8 font-medium opacity-90"
         >
           <Link href="/">Home</Link>
           <div>Friend</div>

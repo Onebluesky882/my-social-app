@@ -10,14 +10,14 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <head />
-      <body className="h-screen overflow-auto">
+      <body className="   ">
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
           enableSystem
           disableTransitionOnChange
         >
-          <div className=" px-4 w-full bg-background md:px-8 lg:px-16 xl:px-24 2xl:px56    sticky top-0">
+          <div className=" px-2 w-full bg-background md:px-8 lg:px-16 xl:px-24 2xl:px56    sticky top-0">
             <Navbar />
           </div>
 

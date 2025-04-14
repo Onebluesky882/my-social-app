@@ -1,8 +1,8 @@
 "use client";
 import Image from "next/image";
 import UploadImage from "./uploadImage";
-import PostCard from "./widget/PostCard";
-import { useEffect, useRef, useState } from "react";
+import { SetStateAction, useEffect, useRef, useState } from "react";
+import { PostCard } from "./widget/PostCard";
 const Addpost = () => {
   const [toggle, setToggle] = useState(false);
   const handleToggle = () => {
@@ -48,8 +48,8 @@ const Addpost = () => {
           className=" w-12 h-12 rounded-full object-cover"
         />
         {/* post */}
-        <div className="flex w-full flex-col px-2 relative ">
-          <div className={`flex gap-4  `}>
+        <div className="flex w-full flex-col px-2  ">
+          <div className={`flex gap-4 `}>
             <span
               className="px-2 bg-secondary rounded-lg flex-1 outline-none"
               onClick={handleToggle}
@@ -80,8 +80,8 @@ const Addpost = () => {
         </div>
       </div>
       {toggle && (
-        <div ref={postCard} className="relative ">
-          <PostCard onClick={handleToggle} />
+        <div ref={postCard} className="relative z-10">
+          <PostCard closePopup={handleToggle} />
         </div>
       )}
     </>
