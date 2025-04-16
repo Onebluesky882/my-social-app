@@ -1,6 +1,8 @@
 import AddPost from "@/components/Addpost";
 import Feeds from "@/components/Feeds";
 import LeftMenu from "@/components/LeftMenu";
+import MobileMenu from "@/components/MobileMenu";
+import { NewMenu } from "@/components/NewMenuMobile";
 import RightMenu from "@/components/RightMenu";
 import Stories from "@/components/Stories";
 import { createServer } from "@/utils/supabase/server";
