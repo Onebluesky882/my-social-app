@@ -1,3 +1,4 @@
+"use client";
 import Image from "next/image";
 import {
   Card,
@@ -7,18 +8,20 @@ import {
   CardTitle,
 } from "../ui/card";
 import { X } from "lucide-react";
-import { IoIosCloseCircle } from "react-icons/io";
-import { useRef, useState, ChangeEvent } from "react";
-import { Images } from "lucide-react";
-import { CircleX } from "lucide-react";
+import { useState, ChangeEvent, useTransition, Suspense } from "react";
 import { createClient } from "@/utils/supabase/client";
 import { convertBlobUrlToFile } from "@/utils/convertBlobUrlFile";
-import { Button } from "../ui/button";
-type PostCardProps = {
+
+import imageCompression from "browser-image-compression";
+import InsertPhotoWidget, { PreviewImage } from "./insertPhotoWidget";
+import Spinner from "../iconSVG/spinner";
+
+export type PostCardProps = {
   closePopup?: () => void;
   setInsertPhoto?: React.Dispatch<React.SetStateAction<boolean>>;
-  previewUrls?: [];
+  previewUrls?: string[];
   setPreviewUrls?: React.Dispatch<React.SetStateAction<string[]>>;
+  removeImage?: (urlToRemove: string) => void;
 };
 
 export const PostCard = ({
@@ -28,43 +31,71 @@ export const PostCard = ({
   const [uploadPhoto, setUploadPhoto] = useState(false);
   const [previewUrls, setPreviewUrls] = useState<string[]>([]);
   const [loading, setLoading] = useState(false);
+  const [content, setContent] = useState("");
+  const [, startTransition] = useTransition();
+  const supabase = createClient();
 
-  const handleSubmitImageWithPost = async () => {
-    setLoading(true);
-    const supabase = createClient();
+  const handleSubmitContentWithImage = async () => {
+    await setLoading(true);
+    await handleSubmitContent();
+    await setLoading(false);
+  };
+
+  const handleSubmitContent = async () => {
     const {
       data: { user },
     } = await supabase.auth.getUser();
 
     if (!user) {
-      console.error("No user found.");
-      return;
-    }
-    if (!previewUrls || previewUrls.length === 0) {
-      console.warn("No images to upload.");
       return;
     }
 
-    for (const imageUrl of previewUrls) {
-      try {
+    /* image upload */
+    let uploadedImageUrls: string[] = [];
+    const options = {
+      maxSizeMB: 0.5, // Target maximum size in MB
+      useWebWorker: true, // Use Web Worker for better performance
+    };
+    if (previewUrls.length > 0) {
+      for (const imageUrl of previewUrls) {
         const file = await convertBlobUrlToFile(imageUrl);
+        const compressImage = await imageCompression(file, options);
+
         const filePath = `${user.id}/${file.name}`;
-        const { data, error } = await supabase.storage
-          .from("image")
-          .upload(filePath, file);
-        if (error) {
-          console.error("Upload error:", error.message);
-        } else {
-          console.log("File uploaded successfully:", data);
+        const { data, error: UploadError } = await supabase.storage
+          .from("images")
+          .upload(filePath, compressImage);
+        if (UploadError) {
+          alert("unsuccessful");
         }
-      } catch (error) {
-        console.error("Error processing image:", error);
+        const publicUrl = supabase.storage.from("images").getPublicUrl(filePath)
+          .data.publicUrl;
+        uploadedImageUrls.push(publicUrl);
       }
     }
-    setLoading(false);
+
+    const postData = {
+      user_id: user.id,
+      content: content,
+      image_urls: uploadedImageUrls,
+    };
+
+    if (content) {
+      const { data, error } = await supabase
+        .from("posts")
+        .insert(postData)
+        .select();
+      console.log(data, "data");
+      if (onClick) onClick();
+    } else {
+      alert("please write before submit");
+    }
+
+    setContent("");
+    setPreviewUrls([]);
   };
 
-  const handleRemoveImage = (urlToRemove: string) => {
+  const handleRemoveUrl = (urlToRemove: string) => {
     if (setInsertPhoto) setInsertPhoto((prev) => !prev);
 
     URL.revokeObjectURL(urlToRemove);
@@ -72,65 +103,82 @@ export const PostCard = ({
       setPreviewUrls((prev) => prev.filter((url) => url !== urlToRemove));
     }
   };
+
+  const handleContentChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
+    setContent(e.target.value.replace(/^\s+/, ""));
+  };
+
+  const handleSubmitForm = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (content.trim() === "") {
+      alert("Please enter content before submitting.");
+      return;
+    }
+  };
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+    if (e.key === " " && content.length === 0) {
+      e.preventDefault();
+    }
+  };
   return (
     <Card className="absolute z-10 w-[38rem] max-md:w-80 flex left-1/2   -translate-x-1/2   -translate-y-1/2 max-md:-translate-x-1/2  ">
-      <CardHeader>
-        <div className="flex justify-between items-center">
-          <CardTitle>สร้างโพสต์</CardTitle>
-          <X onClick={onClick} />
-        </div>
-      </CardHeader>
-      <CardContent className="">
-        <textarea
-          placeholder="แชร์เรื่องราวของคุณ"
-          className=" w-full outline-1 rounded py-2"
-          onChange={() => {}}
-        />
-        {previewUrls && (
-          <div className="flex gap-2">
-            {previewUrls.map((url, index) => (
-              <div key={index} className="relative flex">
-                <Image
-                  src={url}
-                  alt={""}
-                  key={index}
-                  width={80}
-                  height={80}
-                  className="object-contain "
-                />
-
-                <IoIosCloseCircle
-                  className="absolute left-15"
-                  size={30}
-                  onClick={() => handleRemoveImage(url)}
-                />
-              </div>
-            ))}
+      <Suspense>
+        <CardHeader>
+          <div className="flex justify-between items-center">
+            <CardTitle>สร้างโพสต์</CardTitle>
+            <X onClick={onClick} />
           </div>
-        )}
-      </CardContent>
-
-      {uploadPhoto && (
-        <CardContent className="bg-secondary opacity-55 py-10">
-          <div>
-            <InsertPhotoWidget
-              setInsertPhoto={setUploadPhoto}
-              setPreviewUrls={setPreviewUrls}
+        </CardHeader>
+      </Suspense>
+      <Suspense>
+        <CardContent className="">
+          <form onSubmit={handleSubmitForm}>
+            <textarea
+              placeholder="แชร์เรื่องราวของคุณ"
+              className=" w-full outline-1 rounded py-2"
+              value={content}
+              onChange={handleContentChange}
+              onKeyDown={handleKeyDown}
             />
-          </div>
+          </form>
+          {previewUrls && (
+            <PreviewImage
+              previewUrls={previewUrls}
+              removeImage={handleRemoveUrl}
+            />
+          )}
         </CardContent>
-      )}
-      <CardFooter className=" flex justify-between  ">
-        <span>เพิ่มลงโพสต์</span>
-        <IconElement setInsertPhoto={setUploadPhoto} />
-      </CardFooter>
+      </Suspense>
+
+      <Suspense>
+        {uploadPhoto && (
+          <CardContent className="bg-secondary opacity-55 py-10">
+            <div>
+              <InsertPhotoWidget
+                setInsertPhoto={setUploadPhoto}
+                setPreviewUrls={setPreviewUrls}
+              />
+            </div>
+          </CardContent>
+        )}
+      </Suspense>
+      <Suspense>
+        <CardFooter className=" flex justify-between  ">
+          <span>เพิ่มลงโพสต์</span>
+          <IconElement setInsertPhoto={setUploadPhoto} />
+        </CardFooter>
+      </Suspense>
+      {/*  */}
+
       <button
-        onClick={handleSubmitImageWithPost}
+        onClick={handleSubmitContentWithImage}
         disabled={loading}
-        className="bg-primary rounded-sm mx-2"
+        className="bg-primary rounded-sm mx-2 flex items-center justify-center px-4 py-2 text-white disabled:bg-blue-400 "
       >
-        เพิ่มโพส
+        {" "}
+        {loading ? <Spinner /> : <span>เพิ่มโพส</span>}
       </button>
+      {/*  */}
     </Card>
   );
 };
@@ -181,73 +229,5 @@ const IconElement = ({ setInsertPhoto }: PostCardProps) => {
         className="object-contain"
       />
     </div>
-  );
-};
-
-const InsertPhotoWidget = ({
-  setInsertPhoto,
-  setPreviewUrls,
-  previewUrls,
-}: PostCardProps) => {
-  const ref = useRef<HTMLInputElement>(null);
-
-  const handleInput = () => {
-    ref.current?.click();
-  };
-
-  const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const files = e.target.files;
-    if (files) {
-      const fileArray = Array.from(files);
-
-      const urls = fileArray.map((file) => URL.createObjectURL(file));
-
-      if (setPreviewUrls) setPreviewUrls((prev) => [...prev, ...urls]);
-    }
-
-    e.target.value = "";
-  };
-
-  const handleX = () => {
-    if (setInsertPhoto) {
-      setInsertPhoto((prev) => !prev);
-    }
-  };
-
-  /* 
-  input 
-    image input -pass
-    click submit to db with content
-
-  process
-    < input  ref={ref} hidden /> -pass
-    image upload in store supabase
-    content insert to db 
-
-
-  output
-    preview -pass
-    after submit popup gone 
-    show new content  on dash board 
-
-  */
-  return (
-    <>
-      <div className="flex gap-2 justify-center">
-        <Images className="text-gray-500  " />
-        <input
-          ref={ref}
-          type="file"
-          multiple
-          hidden
-          onChange={handleFileChange}
-        />
-        <span onClick={handleInput}>อัพโหลดรูป</span>
-
-        <div className="absolute -translate-full left-[75%]">
-          <CircleX onClick={handleX} />
-        </div>
-      </div>
-    </>
   );
 };
