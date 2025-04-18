@@ -6,6 +6,7 @@ import { NewMenu } from "@/components/NewMenuMobile";
 import RightMenu from "@/components/RightMenu";
 import Stories from "@/components/Stories";
 import { createServer } from "@/utils/supabase/server";
+import { useEffect } from "react";
 
 export default async function Home() {
   const supabase = await createServer();

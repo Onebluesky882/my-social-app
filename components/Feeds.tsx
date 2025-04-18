@@ -59,6 +59,7 @@ const FooterPost = () => {
     <div className="px-10 flex items-center  bg-accent p-1 rounded-sm justify-between text-sm">
       <div className="flex  bg-accent gap-8 ">
         <div className="flex  gap-4 rounded-2xl items-center">
+          
           <Image
             src={"/like.png"}
             alt="like"
