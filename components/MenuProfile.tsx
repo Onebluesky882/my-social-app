@@ -33,7 +33,11 @@ export function MenuProfile() {
   return (
     <DropdownMenu key={theme} open={open} onOpenChange={handleOpenChange}>
       <DropdownMenuTrigger asChild>
-        <Button variant="ghost" onClick={handleThemeChange}>
+        <Button
+          variant="ghost"
+          onClick={handleThemeChange}
+          className="cursor-pointer"
+        >
           <FaBars />
         </Button>
       </DropdownMenuTrigger>

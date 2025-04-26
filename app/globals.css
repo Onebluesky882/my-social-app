@@ -125,6 +125,9 @@
 }
 
 @layer base {
+  .hover-effect {
+    @apply transition-all hover:opacity-50 hover:backdrop-blur-md;
+  }
   * {
     @apply border-border outline-ring/50;
   }
