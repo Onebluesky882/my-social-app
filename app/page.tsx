@@ -6,7 +6,8 @@ export default async function Homepage() {
   const { data } = await supabase.from("posts").select();
 
   return (
-    <div>
+    <div className="bg-background">
+      <h1>hello</h1>
       <pre>{JSON.stringify(data, null, 3)}</pre>
     </div>
   );
