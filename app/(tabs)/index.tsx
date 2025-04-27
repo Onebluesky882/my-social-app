@@ -1,9 +1,6 @@
-import { Image, StyleSheet, Platform, View, Text } from "react-native";
-
-export default function HomeScreen() {
-  return (
-    <View className="flex-1 items-center justify-center">
-      <Text className="text-5xl text-red-400">hello</Text>
-    </View>
-  );
-}
+import { Redirect } from "expo-router";
+import { View, Text } from "react-native";
+const index = () => {
+  return <Redirect href={"/(tabs)/Feeds"} />;
+};
+export default index;
