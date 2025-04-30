@@ -1,6 +1,5 @@
 "use client";
 import Image from "next/image";
-import UploadImage from "./uploadImage";
 import { useEffect, useRef, useState } from "react";
 import { PostCard } from "./widget/PostCard";
 const Addpost = () => {
@@ -37,7 +36,7 @@ const Addpost = () => {
 
   return (
     <>
-      <div className="p-4 flex justify-between bg-accent rounded-2xl my-2 z-0 ">
+      <div className="p-4 flex justify-between bg-accent rounded-2xl   z-0 ">
         <Image
           src={
             "https://images.pexels.com/photos/31442386/pexels-photo-31442386/free-photo-of-contemplative-moment-at-binh-thu-n-seaside.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
@@ -57,6 +56,7 @@ const Addpost = () => {
             >
               what are you thinking
             </span>
+
             <div className="flex  gap-2 text-secondary">
               <Image
                 src={"/photo.png"}
@@ -80,8 +80,10 @@ const Addpost = () => {
         </div>
       </div>
       {toggle && (
-        <div ref={postCard} className="relative z-10">
-          <PostCard closePopup={handleToggle} />
+        <div className=" fixed  h-full z-30 w-full  inset-0 bg-background/85  flex items-center justify-center">
+          <div ref={postCard} className="relative z-10">
+            <PostCard closePopup={handleToggle} />
+          </div>
         </div>
       )}
     </>

@@ -4,7 +4,7 @@ import Image from "next/image";
 
 const Feeds = ({ props }: { props: Post }) => {
   return (
-    <div className="py-1">
+    <div className="py-1 bg-card">
       {/* user */}
       <div className="flex justify-between items-center">
         <div className="py-3 flex items-center gap-4 text-secondary">

@@ -120,7 +120,7 @@ export const PostCard = ({
     }
   };
   return (
-    <Card className="absolute z-10 w-[38rem] max-md:w-80 flex left-1/2   -translate-x-1/2   -translate-y-1/2 max-md:-translate-x-1/2  ">
+    <Card className="absolute z-40 w-[38rem] max-md:w-80 flex   translate-y-[-50%] translate-x-[-100%] right-0 left-0 max-sm:translate-x-[-50%] ">
       <Suspense>
         <CardHeader>
           <div className="flex justify-between items-center">
@@ -175,7 +175,11 @@ export const PostCard = ({
         className="bg-primary rounded-sm mx-2 flex items-center justify-center px-4 py-2 text-white disabled:bg-blue-400 "
       >
         {" "}
-        {loading ? <Spinner /> : <span>เพิ่มโพส</span>}
+        {loading ? (
+          <Spinner />
+        ) : (
+          <span className="text-foreground">เพิ่มโพส</span>
+        )}
       </button>
       {/*  */}
     </Card>

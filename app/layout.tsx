@@ -11,20 +11,18 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <head />
-      <body className="   ">
+      <body className="min-h-screen ">
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
           enableSystem
           disableTransitionOnChange
         >
-          <div className="fixed top-0 px-2 w-full bg-background md:px-8 lg:px-16 xl:px-24 2xl:px56">
+          <div className="fixed top-0 max-sm:px-4 w-full bg-background ">
             <Navbar />
           </div>
 
-          <main className="bg-primary overflow-x-hidden mt-25 min-h-[99%] md:px-8 lg:px-16 xl:px-23 2xl:px-56  scroll-auto ">
-            {children}
-          </main>
+          <main className=" overflow-x-hidden pt-18   ">{children}</main>
           <footer>
             <Footer />
           </footer>

@@ -50,13 +50,13 @@ const MenuIndicator = () => {
     setActive(index);
   };
   return (
-    <div className=" flex justify-center bg-blue-400 border-t-[4px] border-solid border-black">
+    <div className=" flex justify-center bg-blue-400 border-t-[4px] border-solid border-background">
       <div className="bg-blue-400 max-h-[4.4rem] px-6 rounded-t-xl ">
         <ul className="flex relative">
           <span
             className={`bg-blue-700 duration-300 ${Menus[active].dis} ${
-              active && "border-black"
-            } border-4   h-16 w-16 absolute -top-6 rounded-full   border-black`}
+              active && "border-background"
+            } border-4   h-16 w-16 absolute -top-6 rounded-full   border-background`}
           >
             <span className="w-3.5 h-3.5 bg-transparent absolute top-5 -left-[18px] rounded-tr-[11px] shadow-[var(--my-shadow-left)]"></span>
             <span className="w-3.5 h-3.5 bg-transparent absolute top-5 -right-[18px] rounded-tl-[11px] shadow-[var(--my-shadow-right)]"></span>
