@@ -1,7 +1,7 @@
 "use client";
 import Image from "next/image";
 import UploadImage from "./uploadImage";
-import { SetStateAction, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { PostCard } from "./widget/PostCard";
 const Addpost = () => {
   const [toggle, setToggle] = useState(false);

@@ -1,8 +1,7 @@
 import { ThemeProvider } from "@/components/theme-provider";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
-import MobileMenu from "@/components/MobileMenu";
-import { NewMenu } from "@/components/NewMenuMobile";
+import Footer from "@/components/Footer";
 
 export default function RootLayout({
   children,
@@ -23,11 +22,11 @@ export default function RootLayout({
             <Navbar />
           </div>
 
-          <main className="bg-primary overflow-x-hidden mt-25 px-4 md:px-8 lg:px-16 xl:px-23 2xl:px-56  scroll-auto ">
+          <main className="bg-primary overflow-x-hidden mt-25 min-h-[99%] md:px-8 lg:px-16 xl:px-23 2xl:px-56  scroll-auto ">
             {children}
           </main>
           <footer>
-            <NewMenu />
+            <Footer />
           </footer>
         </ThemeProvider>
       </body>

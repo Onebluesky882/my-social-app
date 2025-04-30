@@ -4,7 +4,6 @@ import { ModeToggle } from "./theme-switching";
 import MobileMenu from "./MobileMenu";
 import Link from "next/link";
 import Image from "next/image";
-import { styleText } from "util";
 type MenuProps = {
   href: string;
   style?: React.CSSProperties;
@@ -109,7 +108,7 @@ const Navbar = () => {
               }}
             />
           </div>
-          <div className="md:hidden">
+          <div className="hidden max-sm:flex">
             <MobileMenu />
           </div>
           <ModeToggle />

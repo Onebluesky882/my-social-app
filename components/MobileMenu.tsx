@@ -59,7 +59,7 @@ const MobileMenu = () => {
       {isMobile && (
         <div
           ref={menuRef}
-          className="fixed  inset-0 top-20 bg-card z-[999] flex flex-col items-center justify-center gap-8 font-medium opacity-90"
+          className="fixed  inset-0 top-20 bg-card z-[100] flex flex-col items-center justify-center gap-8 font-medium opacity-90"
         >
           <Link href="/">Home</Link>
           <div>Friend</div>

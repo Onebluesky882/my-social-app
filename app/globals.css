@@ -45,12 +45,15 @@
 
 @layer base {
   :root {
+    /* --my-shadow-1 for menu indicator */
+    --my-shadow-left: 4.1px -5px 0 0 rgb(0, 0, 0);
+    --my-shadow-right: -4.1px -5px 0 0 rgb(0, 0, 0);
     --background: hsl(0, 0%, 100%);
-    --foreground: hsl(222.2, 84%, 4.9%);
+    --foreground: hsl(200, 4%, 15%);
     --card: hsl(0, 0%, 100%);
-    --card-foreground: hsl(222.2, 84%, 4.9%);
+    --card-foreground: hsl(200, 4%, 15%);
     --popover: hsl(0, 0%, 100%);
-    --popover-foreground: hsl(222.2, 84%, 4.9%);
+    --popover-foreground: hsl(200, 4%, 15%);
     --primary: hsl(221.2, 83.2%, 53.3%);
     --primary-foreground: hsl(210, 40%, 98%);
     --secondary: hsl(210, 40%, 96.1%);
@@ -74,11 +77,11 @@
   }
 
   .dark {
-    --background: hsl(222.2, 84%, 4.9%);
+    --background: hsl(200, 4%, 15%);
     --foreground: hsl(210, 40%, 98%);
-    --card: hsl(222.2, 84%, 4.9%);
+    --card: hsl(200, 4%, 15%);
     --card-foreground: hsl(210, 40%, 98%);
-    --popover: hsl(222.2, 84%, 4.9%);
+    --popover: hsl(200, 4%, 15%);
     --popover-foreground: hsl(210, 40%, 98%);
     --primary: hsl(217.2, 91.2%, 59.8%);
     --primary-foreground: hsl(222.2, 47.4%, 11.2%);

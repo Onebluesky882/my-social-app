@@ -1,41 +1,21 @@
 import AddPost from "@/components/Addpost";
 import Feeds from "@/components/Feeds";
 import LeftMenu from "@/components/LeftMenu";
-import MobileMenu from "@/components/MobileMenu";
-import { NewMenu } from "@/components/NewMenuMobile";
 import RightMenu from "@/components/RightMenu";
-import Stories from "@/components/Stories";
 import { createServer } from "@/utils/supabase/server";
-import { useEffect } from "react";
 
 export default async function Home() {
-  const supabase = await createServer();
-
-  const {
-    data: { session },
-  } = await supabase.auth.getSession();
-
   return (
-    <div className="flex gap-6  ">
-      <div className="hidden xl:block outline-solid  w-[20%] ">
-        <LeftMenu />
+    <div className=" grid outline-1 md:grid-cols-7 max-sm:grid-cols-1  ">
+      <div className="hidden md:grid  col-span-1">left</div>
+      <div className="bg-background h-[100px]  col-span-5">
+        {/* section 1 input post */}
+
+        {/* story  */}
+
+        {/* post map */}
       </div>
-      <div className="w-full lg:w-[70%] xl:w-[50%]">
-        <div className="">
-          <Stories />
-          <AddPost />
-          <Feeds
-            props={{
-              id: 0,
-              title: "",
-              content: "",
-            }}
-          />
-        </div>
-      </div>
-      <div className="hidden xl:block w-[30%] outline-solid  ">
-        <RightMenu />
-      </div>
+      <div className="hidden md:grid col-span-1">right</div>
     </div>
   );
 }

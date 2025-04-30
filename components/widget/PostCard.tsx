@@ -32,7 +32,6 @@ export const PostCard = ({
   const [previewUrls, setPreviewUrls] = useState<string[]>([]);
   const [loading, setLoading] = useState(false);
   const [content, setContent] = useState("");
-  const [, startTransition] = useTransition();
   const supabase = createClient();
 
   const handleSubmitContentWithImage = async () => {
