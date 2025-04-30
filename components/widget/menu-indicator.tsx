@@ -42,7 +42,6 @@ const MenuIndicator = () => {
       path: "setting",
     },
   ];
-  console.log("pathname :", pathname);
 
   const [active, setActive] = useState(0);
 

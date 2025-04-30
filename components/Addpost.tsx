@@ -2,24 +2,49 @@
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import { PostCard } from "./widget/PostCard";
+import { createClient } from "@/utils/supabase/client";
+import { User } from "@supabase/auth-js";
+import { redirect } from "next/navigation";
+import { LoginForm } from "./widget/SingInForm";
 const Addpost = () => {
   const [toggle, setToggle] = useState(false);
-  const handleToggle = () => {
-    setToggle((prev) => !prev);
-  };
-
+  const [isUser, setIsUser] = useState<User | null>(null);
   const postCard = useRef<HTMLDivElement | null>(null);
   const popUp = useRef<HTMLDivElement | null>(null);
+  const signInFormRef = useRef<HTMLDivElement | null>(null);
+  const supabase = createClient();
+
+  const checkAuthUser = async () => {
+    const {
+      data: { user },
+    } = await supabase.auth.getUser();
+
+    if (user) {
+      setIsUser(user);
+    }
+  };
 
   useEffect(() => {
+    checkAuthUser();
+
     const closePopupOutside = (event: MouseEvent) => {
       const target = event.target as Node;
 
       if (
-        popUp.current &&
-        !popUp.current.contains(target) &&
+        isUser &&
         postCard.current &&
-        !postCard.current.contains(target)
+        !postCard.current.contains(target) &&
+        popUp.current &&
+        !popUp.current.contains(target)
+      ) {
+        setToggle(false);
+      }
+      if (
+        !isUser &&
+        signInFormRef.current &&
+        !signInFormRef.current.contains(target) &&
+        popUp.current &&
+        !popUp.current.contains(target)
       ) {
         setToggle(false);
       }
@@ -33,6 +58,10 @@ const Addpost = () => {
       document.removeEventListener("mousedown", closePopupOutside);
     };
   }, [toggle]);
+  console.log("toggle :", toggle);
+  const handleToggle = () => {
+    setToggle((prev) => !prev);
+  };
 
   return (
     <>
@@ -80,9 +109,13 @@ const Addpost = () => {
         </div>
       </div>
       {toggle && (
-        <div className=" fixed  h-full z-30 w-full  inset-0 bg-background/85  flex items-center justify-center">
-          <div ref={postCard} className="relative z-10">
-            <PostCard closePopup={handleToggle} />
+        <div className=" fixed  h-full z-30 w-full  inset-0 bg-background/80  flex items-center justify-center">
+          <div ref={isUser ? postCard : signInFormRef}>
+            {isUser ? (
+              <PostCard closePopup={handleToggle} />
+            ) : (
+              <LoginForm closePopup={handleToggle} />
+            )}
           </div>
         </div>
       )}

@@ -127,3 +127,34 @@
     display: none;
   }
 }
+
+@keyframes rainbowOutline {
+  0%,
+  100% {
+    box-shadow: 0 0 0 2px red;
+  }
+  14% {
+    box-shadow: 0 0 0 2px orange;
+  }
+  28% {
+    box-shadow: 0 0 0 2px yellow;
+  }
+  42% {
+    box-shadow: 0 0 0 2px green;
+  }
+  57% {
+    box-shadow: 0 0 0 2px blue;
+  }
+  71% {
+    box-shadow: 0 0 0 2px indigo;
+  }
+  85% {
+    box-shadow: 0 0 0 2px violet;
+  }
+}
+
+.rainbow-outline {
+  animation: rainbowOutline 5s linear infinite;
+  border-radius: 1rem; /* Adjust as needed */
+  padding: 10px;
+}

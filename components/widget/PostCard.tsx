@@ -8,7 +8,7 @@ import {
   CardTitle,
 } from "../ui/card";
 import { X } from "lucide-react";
-import { useState, ChangeEvent, useTransition, Suspense } from "react";
+import { useState, ChangeEvent, Suspense } from "react";
 import { createClient } from "@/utils/supabase/client";
 import { convertBlobUrlToFile } from "@/utils/convertBlobUrlFile";
 
@@ -61,7 +61,7 @@ export const PostCard = ({
         const compressImage = await imageCompression(file, options);
 
         const filePath = `${user.id}/${file.name}`;
-        const { data, error: UploadError } = await supabase.storage
+        const { error: UploadError } = await supabase.storage
           .from("images")
           .upload(filePath, compressImage);
         if (UploadError) {
@@ -84,7 +84,7 @@ export const PostCard = ({
         .from("posts")
         .insert(postData)
         .select();
-      console.log(data, "data");
+
       if (onClick) onClick();
     } else {
       alert("please write before submit");
@@ -120,14 +120,12 @@ export const PostCard = ({
     }
   };
   return (
-    <Card className="absolute z-40 w-[38rem] max-md:w-80 flex   translate-y-[-50%] translate-x-[-100%] right-0 left-0 max-sm:translate-x-[-50%] ">
+    <Card className="  h-75 w-75 inset-0 z-40 flex items-center justify-center border-none">
       <Suspense>
-        <CardHeader>
-          <div className="flex justify-between items-center">
-            <CardTitle>สร้างโพสต์</CardTitle>
-            <X onClick={onClick} />
-          </div>
-        </CardHeader>
+        <div className="flex ">
+          <span className=" "> สร้างโพสต์</span>
+          <X onClick={onClick} />
+        </div>
       </Suspense>
       <Suspense>
         <CardContent className="">
