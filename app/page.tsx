@@ -1,11 +1,14 @@
+import Posts from "@/actions/PostsAction";
 import AddPost from "@/components/Addpost";
 import Feeds from "@/components/Feeds";
 import LeftMenu from "@/components/LeftMenu";
 import RightMenu from "@/components/RightMenu";
 import StorySection from "@/components/section/StorySection";
-import { createServer } from "@/utils/supabase/server";
 
 export default async function Home() {
+  const res = await Posts();
+  const posts = await res.json();
+  console.log(posts);
   return (
     <div className=" grid grid-cols-5    max-sm:grid-cols-1    ">
       <div className="hidden    col-span-1">left</div>
@@ -18,13 +21,13 @@ export default async function Home() {
           {/* post map */}
 
           {
-            <Feeds
-              props={{
-                id: 0,
-                title: "",
-                content: "",
-              }}
-            />
+            // <Feeds
+            //   props={{
+            //     id: 0,
+            //     title: "",
+            //     content: "",
+            //   }}
+            // />
           }
         </div>
       </div>

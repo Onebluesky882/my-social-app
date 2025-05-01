@@ -4,7 +4,6 @@ import { useEffect, useRef, useState } from "react";
 import { PostCard } from "./widget/PostCard";
 import { createClient } from "@/utils/supabase/client";
 import { User } from "@supabase/auth-js";
-import { redirect } from "next/navigation";
 import { LoginForm } from "./widget/SingInForm";
 const Addpost = () => {
   const [toggle, setToggle] = useState(false);
@@ -58,7 +57,7 @@ const Addpost = () => {
       document.removeEventListener("mousedown", closePopupOutside);
     };
   }, [toggle]);
-  console.log("toggle :", toggle);
+
   const handleToggle = () => {
     setToggle((prev) => !prev);
   };

@@ -1,8 +1,9 @@
 "use client";
 import { Button } from "@/components/ui/button";
 import { createClient } from "@/utils/supabase/client";
+import { redirect } from "next/navigation";
 
-const GoogleSignin = () => {
+export async function signInAction() {
   const handleSignin = async () => {
     const supabase = createClient();
     await (
@@ -13,5 +14,10 @@ const GoogleSignin = () => {
     });
   };
   return <Button onClick={handleSignin}>Google</Button>;
-};
-export default GoogleSignin;
+}
+
+export async function signOutAction() {
+  const supabase = await createClient();
+  await supabase.auth.signOut();
+  redirect("/");
+}

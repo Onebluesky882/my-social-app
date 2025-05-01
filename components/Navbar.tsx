@@ -4,6 +4,10 @@ import { ModeToggle } from "./theme-switching";
 import MobileMenu from "./MobileMenu";
 import Link from "next/link";
 import Image from "next/image";
+import { useUserStore } from "@/lib/store/useStore";
+import { useEffect, useState } from "react";
+import { createClient } from "@/utils/supabase/client";
+import { User } from "@supabase/supabase-js";
 type MenuProps = {
   href: string;
   style?: React.CSSProperties;
@@ -15,6 +19,9 @@ type MenuProps = {
   };
   name?: string | null;
 };
+
+// get user to show
+
 const NavMenuProps = ({ href, image, name, style }: MenuProps) => {
   return (
     <Link href={href} className="flex items-center gap-2" style={style}>
@@ -33,6 +40,22 @@ const NavMenuProps = ({ href, image, name, style }: MenuProps) => {
 };
 
 const Navbar = () => {
+  const { setUser, userId } = useUserStore();
+  const supabase = createClient();
+
+  useEffect(() => {
+    const storeUser = async () => {
+      const {
+        data: { user },
+      } = await supabase.auth.getUser();
+      if (user) {
+        setUser(user);
+      }
+    };
+
+    storeUser();
+  }, []);
+
   return (
     <div className="flex items-center  mx-auto h-16 justify-between  ">
       {/* left */}
@@ -80,7 +103,10 @@ const Navbar = () => {
           <Image src="/search.png" alt={"search"} width={14} height={14} />
         </div>
       </div>
+      {/* test get user */}
+      <h1>{userId && <p>{userId.id}</p>}</h1>
 
+      {/* ... */}
       <div>
         {/* right */}
         <div className=" flex items-center gap-2 xl:gap-8 justify-end  ">
@@ -108,6 +134,7 @@ const Navbar = () => {
               }}
             />
           </div>
+          {}
           <div className="hidden max-sm:flex">
             <MobileMenu />
           </div>

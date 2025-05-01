@@ -15,7 +15,11 @@ export const createClient = async () => {
         setAll(cookiesToSet) {
           try {
             cookiesToSet.forEach(({ name, value, options }) => {
-              cookieStore.set(name, value, options);
+              cookieStore.set(name, value, {
+                ...options,
+                // set cookies time expires
+                expires: new Date(Date.now() + 60 * 60 * 24 * 7 * 1000),
+              });
             });
           } catch (error) {
             // The `set` method was called from a Server Component.

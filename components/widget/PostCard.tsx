@@ -1,12 +1,6 @@
 "use client";
 import Image from "next/image";
-import {
-  Card,
-  CardContent,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "../ui/card";
+import { Card, CardContent, CardFooter } from "../ui/card";
 import { X } from "lucide-react";
 import { useState, ChangeEvent, Suspense } from "react";
 import { createClient } from "@/utils/supabase/client";
@@ -35,12 +29,18 @@ export const PostCard = ({
   const supabase = createClient();
 
   const handleSubmitContentWithImage = async () => {
-    await setLoading(true);
+    setLoading(true);
+    const start = performance.now();
+
     await handleSubmitContent();
-    await setLoading(false);
+    const end = performance.now();
+    console.log(`Total submit time: ${(end - start).toFixed(2)}ms`);
+    setLoading(false);
   };
 
   const handleSubmitContent = async () => {
+    const t0 = performance.now();
+
     const {
       data: { user },
     } = await supabase.auth.getUser();
@@ -48,37 +48,47 @@ export const PostCard = ({
     if (!user) {
       return;
     }
+    const t1 = performance.now();
 
+    console.log(`⏱ Get user T1-T0 : ${(t1 - t0).toFixed(2)}ms`);
     /* image upload */
+
+    const t2 = performance.now();
     let uploadedImageUrls: string[] = [];
-    const options = {
-      maxSizeMB: 0.5, // Target maximum size in MB
-      useWebWorker: true, // Use Web Worker for better performance
-    };
     if (previewUrls.length > 0) {
-      for (const imageUrl of previewUrls) {
+      const options = {
+        maxSizeMB: 0.5, // Target maximum size in MB
+        useWebWorker: true, // Use Web Worker for better performance
+      };
+      const uploadPromises = previewUrls.map(async (imageUrl) => {
         const file = await convertBlobUrlToFile(imageUrl);
         const compressImage = await imageCompression(file, options);
 
         const filePath = `${user.id}/${file.name}`;
-        const { error: UploadError } = await supabase.storage
+        const { error } = await supabase.storage
           .from("images")
           .upload(filePath, compressImage);
-        if (UploadError) {
-          alert("unsuccessful");
+        if (error) {
+          console.error("❌ Upload failed for", file.name, error);
+          return null;
         }
-        const publicUrl = supabase.storage.from("images").getPublicUrl(filePath)
-          .data.publicUrl;
-        uploadedImageUrls.push(publicUrl);
-      }
+        const { data } = supabase.storage.from("images").getPublicUrl(filePath);
+
+        return data.publicUrl;
+      });
+      const results = await Promise.all(uploadPromises);
+      uploadedImageUrls = results.filter((url): url is string => url !== null);
     }
+    const t3 = performance.now();
+    console.log(`⏱ Get user T3 -T2: ${(t3 - t2).toFixed(2)}ms`);
+    /* ---------------- */
 
     const postData = {
       user_id: user.id,
       content: content,
       image_urls: uploadedImageUrls,
     };
-
+    const t4 = performance.now();
     if (content) {
       const { data, error } = await supabase
         .from("posts")
@@ -86,12 +96,12 @@ export const PostCard = ({
         .select();
 
       if (onClick) onClick();
-    } else {
-      alert("please write before submit");
     }
 
     setContent("");
     setPreviewUrls([]);
+    const t5 = performance.now();
+    console.log(`⏱ Get user T5-T4: ${(t5 - t4).toFixed(2)}ms`);
   };
 
   const handleRemoveUrl = (urlToRemove: string) => {
@@ -119,6 +129,7 @@ export const PostCard = ({
       e.preventDefault();
     }
   };
+
   return (
     <Card className="  h-75 w-75 inset-0 z-40 flex items-center justify-center border-none">
       <Suspense>
