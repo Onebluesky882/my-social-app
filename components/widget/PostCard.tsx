@@ -59,11 +59,11 @@ export const PostCard = ({
       const options = {
         maxSizeMB: 0.5, // Target maximum size in MB
         useWebWorker: true, // Use Web Worker for better performance
+        maxWidthOrHeight: 1024,
       };
       const uploadPromises = previewUrls.map(async (imageUrl) => {
         const file = await convertBlobUrlToFile(imageUrl);
         const compressImage = await imageCompression(file, options);
-
         const filePath = `${user.id}/${file.name}`;
         const { error } = await supabase.storage
           .from("images")

@@ -7,7 +7,7 @@ import Image from "next/image";
 import { useUserStore } from "@/lib/store/useStore";
 import { useEffect, useState } from "react";
 import { createClient } from "@/utils/supabase/client";
-import { User } from "@supabase/supabase-js";
+import { Post } from "@/types/post-type";
 type MenuProps = {
   href: string;
   style?: React.CSSProperties;
@@ -38,8 +38,9 @@ const NavMenuProps = ({ href, image, name, style }: MenuProps) => {
     </Link>
   );
 };
-
+type UserEmail = Pick<Post["profiles"], "email">;
 const Navbar = () => {
+  const [email, setEmail] = useState<UserEmail[] | null>(null);
   const { setUser, userId } = useUserStore();
   const supabase = createClient();
 
@@ -52,8 +53,14 @@ const Navbar = () => {
         setUser(user);
       }
     };
+    // ! problem here have 2 email seopostoffer@gmail.comwansing05@gmail.com
+    const getEmail = async () => {
+      const { data } = await supabase.from("profiles").select("email").single();
+      if (data) setEmail([data]);
+    };
 
     storeUser();
+    getEmail();
   }, []);
 
   return (
@@ -104,7 +111,7 @@ const Navbar = () => {
         </div>
       </div>
       {/* test get user */}
-      <h1>{userId && <p>{userId.id}</p>}</h1>
+      <h1>{email && <p>{email.map((e) => e.email)}</p>}</h1>
 
       {/* ... */}
       <div>
