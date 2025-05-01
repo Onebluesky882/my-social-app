@@ -1,9 +1,8 @@
 "use client";
-import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
+import { Card } from "../ui/card";
 import { Suspense } from "react";
 
 import { createClient } from "../../utils/supabase/client";
-import { Button } from "../ui/button";
 
 export const LoginForm = ({ closePopup }: any) => {
   const handleSignin = async () => {
