@@ -23,11 +23,11 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <div className="fixed top-0 max-sm:px-4 w-full bg-background ">
+          <div className="fixed top-0 max-sm:px-2 w-full bg-popover ">
             <Navbar />
           </div>
 
-          <main className=" overflow-x-hidden pt-18   ">{children}</main>
+          <main className=" overflow-x-hidden    ">{children}</main>
           <footer>
             <Footer />
           </footer>

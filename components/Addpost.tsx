@@ -64,33 +64,33 @@ const Addpost = () => {
 
   return (
     <>
-      <div className="p-4 flex justify-between bg-accent rounded-2xl   z-0 ">
+      <div className="p-2 flex justify-between bg-card ">
         <Image
           src={
             "https://images.pexels.com/photos/31442386/pexels-photo-31442386/free-photo-of-contemplative-moment-at-binh-thu-n-seaside.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
           }
           alt="woman"
-          width={40}
-          height={40}
-          className=" w-12 h-12 rounded-full object-cover"
+          width={100}
+          height={100}
+          className=" w-8 h-8 rounded-full object-cover"
         />
         {/* post */}
         <div className="flex w-full flex-col px-2  ">
-          <div className={`flex gap-4 `}>
+          <div className="flex gap-4 items-center">
             <span
-              className="px-2 bg-secondary rounded-lg flex-1 outline-none"
+              className="px-2  text-[11px] font-extralight rounded-lg flex-1 outline-none"
               onClick={handleToggle}
               ref={popUp}
             >
-              what are you thinking
+              What are you thinking
             </span>
 
             <div className="flex  gap-2 text-secondary">
               <Image
                 src={"/photo.png"}
                 alt="emoji"
-                width={20}
-                height={20}
+                width={15}
+                height={15}
                 className=" self-end"
                 onClick={handleToggle}
               />
@@ -98,8 +98,8 @@ const Addpost = () => {
             <Image
               src={"/emoji.png"}
               alt="emoji"
-              width={20}
-              height={20}
+              width={15}
+              height={15}
               className=" self-end"
               onClick={handleToggle}
             />

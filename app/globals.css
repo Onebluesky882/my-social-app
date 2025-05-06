@@ -81,7 +81,7 @@
     --foreground: hsl(210, 40%, 98%);
     --card: hsl(200, 4%, 15%);
     --card-foreground: hsl(210, 40%, 98%);
-    --popover: hsl(200, 4%, 15%);
+    --popover: hsl(150, 3%, 15%);
     --popover-foreground: hsl(210, 40%, 98%);
     --primary: hsl(217.2, 91.2%, 59.8%);
     --primary-foreground: hsl(222.2, 47.4%, 11.2%);
@@ -157,4 +157,11 @@
   animation: rainbowOutline 5s linear infinite;
   border-radius: 1rem; /* Adjust as needed */
   padding: 10px;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }

@@ -64,7 +64,7 @@ const Navbar = () => {
   }, []);
 
   return (
-    <div className="flex items-center  mx-auto h-16 justify-between  ">
+    <div className="flex items-center  mx-auto h-12 justify-between   ">
       {/* left */}
       <div className="hidden lg:block ">
         <Link href={"/"} className="font-bold text-2xl text-primary">
@@ -145,7 +145,6 @@ const Navbar = () => {
           <div className="hidden max-sm:flex">
             <MobileMenu />
           </div>
-          <ModeToggle />
         </div>
       </div>
     </div>
