@@ -8,7 +8,7 @@ export default async function Home() {
   const res = getPosts();
   console.log("res :", res);
   return (
-    <div className=" grid grid-cols-4    max-sm:grid-cols-1  bg-popover -mt-1  overflow-x-hidden">
+    <div className=" grid grid-cols-4    max-sm:grid-cols-1  bg-background -mt-1  overflow-x-hidden">
       <div className="hidden  md:grid   col-span-1">left</div>
 
       <div className=" max-sm:col-span-1 col-span-2 pt-5  max-sm:mt-8">

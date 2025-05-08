@@ -64,7 +64,7 @@ const Addpost = () => {
 
   return (
     <>
-      <div className="p-2 flex justify-between bg-card -mt-10">
+      <div className="p-4 my-2 flex justify-between bg-card pt-6 md:mt-14 max-sm:rounded-none rounded-2xl items-center">
         {isUser ? (
           <Image
             src={

@@ -27,7 +27,7 @@ export default function RootLayout({
           >
             <Navbar />
 
-            <main className=" overflow-x-hidden    ">{children}</main>
+            <main className=" overflow-x-hidden   ">{children}</main>
             <footer>
               <Footer />
             </footer>

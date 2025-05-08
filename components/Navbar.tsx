@@ -43,8 +43,8 @@ const Navbar = () => {
   }, [setUser]);
 
   return (
-    <div className="w-full border-1 border-b-white/20 shadow bg-white/15">
-      <div className="flex grid-cols-4  mx-2 items-center  h-14 justify-between  gap-2  ">
+    <div className="fixed top-0  w-full z-999  border-b-1 border-b-white/10 shadow bg-gray-950/90">
+      <div className=" flex grid-cols-4  mx-2 items-center  h-14 justify-between  gap-2  ">
         {/* left */}
         <LeftSection md={md} />
         {/* middle */}
@@ -84,7 +84,7 @@ const LeftSection = ({ md }: any) => {
 
 const RightSection = ({ avatarUrl }: any) => {
   return (
-    <div className="flex col-span-1">
+    <div className="flex col-span-1 items-center mt-1">
       <div className="  flex gap-3 items-center">
         <span className="h-10 w-10 rounded-full  items-center justify-center   bg-gray-700 inline-flex">
           <Image src={"/bell.svg"} height={16} width={16} alt="" />
