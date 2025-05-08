@@ -7,4 +7,5 @@ export type Post = {
 };
 export type Profiles = {
   email: string;
+  avatar_url: string;
 };

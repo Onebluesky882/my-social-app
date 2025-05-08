@@ -1,8 +1,12 @@
 "use client";
-import { Post } from "@/types/post-type";
+import { createClient } from "@/utils/supabase/client";
 import Image from "next/image";
+import { useState } from "react";
+const supabase = createClient();
 
-const Feeds = ({ props }: { props: Post }) => {
+const getPosts = async () => {};
+
+const Feeds = () => {
   return (
     <div className="py-1 bg-card">
       {/* user */}
@@ -33,7 +37,7 @@ const Feeds = ({ props }: { props: Post }) => {
             className="object-cover rounded-md "
           />
         </div>
-        <p className="text-secondary">
+        <p className="text-primary-foreground">
           Lorem Ipsum is simply dummy text of the printing and typesetting
           industry. Lorem Ipsum has been the industry's standard dummy text ever
           since the 1500s, when an unknown printer took a galley of type and

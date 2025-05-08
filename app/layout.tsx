@@ -4,6 +4,7 @@ import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { useEffect } from "react";
+import { BreakpointProvider } from "@/lib/useBreakpoint";
 
 export default function RootLayout({
   children,
@@ -17,21 +18,21 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <head />
       <body className="min-h-screen ">
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange
-        >
-          <div className="fixed top-0 max-sm:px-2 w-full bg-popover ">
+        <BreakpointProvider>
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+          >
             <Navbar />
-          </div>
 
-          <main className=" overflow-x-hidden    ">{children}</main>
-          <footer>
-            <Footer />
-          </footer>
-        </ThemeProvider>
+            <main className=" overflow-x-hidden    ">{children}</main>
+            <footer>
+              <Footer />
+            </footer>
+          </ThemeProvider>
+        </BreakpointProvider>
       </body>
     </html>
   );

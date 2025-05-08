@@ -2,7 +2,7 @@
 import Image from "next/image";
 const StorySection = () => {
   return (
-    <div className="flex w-full  gap-2 overflow-x-auto no-scrollbar  scroll-smooth border-t-2 border-black py-2">
+    <div className="flex w-full  gap-2 overflow-x-auto no-scrollbar  scroll-smooth border-y-2 border-black pt-2">
       <div className="flex gap-2 min-w-max px-4 ">
         <CreateStory />
         <StoryFriend
@@ -66,7 +66,8 @@ const CreateStory = () => {
             "https://images.pexels.com/photos/31442386/pexels-photo-31442386/free-photo-of-contemplative-moment-at-binh-thu-n-seaside.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
           }
           alt=""
-          fill
+          height={100}
+          width={100}
           className="rounded-t-md object-cover"
         />
       </div>

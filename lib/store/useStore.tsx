@@ -1,13 +1,10 @@
 import { create } from "zustand";
 
 // type
-export type UserId = {
-  id: string;
-};
 
 type UserStore = {
-  userId: UserId | null;
-  setUser: (userId: UserId) => void;
+  userId: string | null;
+  setUser: (userId: string) => void;
   clearUser: () => void;
 };
 

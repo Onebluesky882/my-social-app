@@ -1,154 +1,124 @@
 "use client";
 
-import { ModeToggle } from "./theme-switching";
-import MobileMenu from "./MobileMenu";
 import Link from "next/link";
 import Image from "next/image";
 import { useUserStore } from "@/lib/store/useStore";
 import { useEffect, useState } from "react";
 import { createClient } from "@/utils/supabase/client";
 import { Post } from "@/types/post-type";
-type MenuProps = {
-  href: string;
-  style?: React.CSSProperties;
-  image: {
-    src: string;
-    alt: string;
-    width?: number;
-    height?: number;
-  };
-  name?: string | null;
-};
+import { IoSearch } from "react-icons/io5";
+import { useBreakpoint } from "@/lib/useBreakpoint";
+import { Input } from "./ui/input";
 
-// get user to show
+type UserProfileImage = Pick<Post["profiles"], "avatar_url">;
 
-const NavMenuProps = ({ href, image, name, style }: MenuProps) => {
-  return (
-    <Link href={href} className="flex items-center gap-2" style={style}>
-      <Image
-        src={image.src}
-        alt={image.alt}
-        width={image.width ?? 20}
-        height={image.height ?? 20}
-        style={style}
-      />
-      <span style={style} className="text-sm">
-        {name}
-      </span>
-    </Link>
-  );
-};
-type UserEmail = Pick<Post["profiles"], "email">;
 const Navbar = () => {
-  const [email, setEmail] = useState<UserEmail[] | null>(null);
+  const { md } = useBreakpoint();
   const { setUser, userId } = useUserStore();
   const supabase = createClient();
+  const [avatarUrl, setAvatarUrl] = useState<UserProfileImage | null>(null);
 
   useEffect(() => {
-    const storeUser = async () => {
+    const fetchUserAvatar = async () => {
       const {
         data: { user },
       } = await supabase.auth.getUser();
+
       if (user) {
-        setUser(user);
+        setUser(user.id);
+        const { data, error } = await supabase
+          .from("profiles")
+          .select()
+          .eq("id", user.id)
+          .single();
+        if (error) {
+          console.log("Error fetching avatar:", error.message);
+        } else {
+          setAvatarUrl(data);
+          console.log("data :", data);
+        }
       }
     };
-    // ! problem here have 2 email seopostoffer@gmail.comwansing05@gmail.com
-    const getEmail = async () => {
-      const { data } = await supabase.from("profiles").select("email").single();
-      if (data) setEmail([data]);
-    };
-
-    storeUser();
-    getEmail();
-  }, []);
+    fetchUserAvatar();
+  }, [setUser]);
 
   return (
-    <div className="flex items-center  mx-auto h-12 justify-between   ">
-      {/* left */}
-      <div className="hidden lg:block ">
-        <Link href={"/"} className="font-bold text-2xl text-primary">
-          Website
-        </Link>
-      </div>
-      {/* center */}
-      <div className="  md:flex gap-4 ">
-        {/* link */}
-        <nav className="flex gap-2 text-primary">
-          <NavMenuProps
-            href={"/"}
-            image={{
-              src: "/home.png",
-              alt: "homepage",
-            }}
-            name={"Homepage"}
-          />
-          <NavMenuProps
-            href={"/"}
-            image={{
-              src: "/friends.png",
-              alt: "friends",
-            }}
-            name={"friends"}
-          />
-          <NavMenuProps
-            href={"/"}
-            image={{
-              src: "/stories.png",
-              alt: "stories",
-            }}
-            name={"stories"}
-          />
-        </nav>
-        {/* search bar */}
-        <div className="hidden xl:flex p-2 bg-secondary items-center rounded-xl text-sm ">
-          <input
-            type="text"
-            placeholder="search"
-            className="bg-transparent outline-none"
-          />
-          <Image src="/search.png" alt={"search"} width={14} height={14} />
+    <div className="w-full border-1 border-b-white/20 shadow bg-white/15">
+      <div className="flex grid-cols-4  mx-2 items-center  h-14 justify-between  gap-2  ">
+        {/* left */}
+        <LeftSection md={md} />
+        {/* middle */}
+        <div className="flex col-span-2  ">
+          <div className="max-sm:hidden flex items-center gap-2 xl:gap-8 justify-end  "></div>
         </div>
-      </div>
-      {/* test get user */}
-      <h1>{email && <p>{email.map((e) => e.email)}</p>}</h1>
-
-      {/* ... */}
-      <div>
-        {/* right */}
-        <div className=" flex items-center gap-2 xl:gap-8 justify-end  ">
-          {/* right link  */}
-          <div className="max-md:hidden flex gap-3 items-center">
-            <NavMenuProps
-              href={""}
-              image={{
-                src: "/people.png",
-                alt: "",
-              }}
-            />
-            <NavMenuProps
-              href={""}
-              image={{
-                src: "/messages.png",
-                alt: "messages",
-              }}
-            />{" "}
-            <NavMenuProps
-              href={""}
-              image={{
-                src: "/notifications.png",
-                alt: "",
-              }}
-            />
-          </div>
-          {}
-          <div className="hidden max-sm:flex">
-            <MobileMenu />
-          </div>
-        </div>
+        {/* right section */}
+        <RightSection avatarUrl={avatarUrl} />
       </div>
     </div>
   );
 };
 
+const LeftSection = ({ md }: any) => {
+  return (
+    <div className="flex gap-4 col-span-1 ">
+      <div className=" flex">
+        <Link href={"/"} className="font-bold text-2xl text-primary">
+          Facebook2
+        </Link>
+      </div>
+
+      <div className=" p-2 bg-secondary items-center rounded-xl text-sm    ">
+        {md ? (
+          <Input
+            type="text"
+            placeholder="search"
+            className="h-5 text-[12px] "
+          />
+        ) : (
+          <IoSearch />
+        )}
+      </div>
+    </div>
+  );
+};
+
+const RightSection = ({ avatarUrl }: any) => {
+  return (
+    <div className="flex col-span-1">
+      <div className="  flex gap-3 items-center">
+        <span className="h-10 w-10 rounded-full  items-center justify-center   bg-gray-700 inline-flex">
+          <Image src={"/bell.svg"} height={16} width={16} alt="" />
+        </span>
+        <span className="h-10 w-10 rounded-full  items-center justify-center    bg-gray-700 inline-flex">
+          <Image src={"/message.svg"} height={20} width={20} alt="" />
+        </span>
+
+        {avatarUrl?.avatar_url ? (
+          <span className="relative ">
+            <Image
+              src={avatarUrl.avatar_url}
+              alt="User Avatar"
+              width={36}
+              height={36}
+              className="rounded-full"
+              onClick={() => {}}
+            />
+            <span className="h-3 w-3 rounded-full inline-flex items-center justify-center absolute   translate-x-6 -translate-y-3 outline-2 outline-black bg-black">
+              <Image src={"/dropdown.svg"} height={20} width={20} alt="" />
+            </span>
+          </span>
+        ) : (
+          <span className="relative">
+            <Image
+              src="/avatar-1.png"
+              alt="Default Avatar"
+              width={30}
+              height={30}
+            />
+          </span>
+        )}
+      </div>
+    </div>
+  );
+};
 export default Navbar;

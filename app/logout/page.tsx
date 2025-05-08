@@ -3,10 +3,12 @@ import { signOutAction } from "@/actions/GoogleAuth";
 import { createClient } from "@/utils/supabase/server";
 import { redirect } from "next/navigation";
 
-export default async function Signout() {
+export default async function page() {
   return (
-    <form action={signOutAction}>
-      <button type="submit">signout</button>
-    </form>
+    <div className="bg-white">
+      <form action={signOutAction}>
+        <button type="submit">signout</button>
+      </form>
+    </div>
   );
 }

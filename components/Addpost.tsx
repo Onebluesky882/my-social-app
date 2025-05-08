@@ -64,21 +64,33 @@ const Addpost = () => {
 
   return (
     <>
-      <div className="p-2 flex justify-between bg-card ">
-        <Image
-          src={
-            "https://images.pexels.com/photos/31442386/pexels-photo-31442386/free-photo-of-contemplative-moment-at-binh-thu-n-seaside.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
-          }
-          alt="woman"
-          width={100}
-          height={100}
-          className=" w-8 h-8 rounded-full object-cover"
-        />
-        {/* post */}
+      <div className="p-2 flex justify-between bg-card -mt-10">
+        {isUser ? (
+          <Image
+            src={
+              "https://images.pexels.com/photos/31442386/pexels-photo-31442386/free-photo-of-contemplative-moment-at-binh-thu-n-seaside.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+            }
+            alt="woman"
+            width={100}
+            height={100}
+            className=" w-8 h-8 rounded-full object-cover"
+          />
+        ) : (
+          <Image
+            src={
+              "https://images.pexels.com/photos/31442386/pexels-photo-31442386/free-photo-of-contemplative-moment-at-binh-thu-n-seaside.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+            }
+            alt="woman"
+            width={100}
+            height={100}
+            className=" w-8 h-8 rounded-full object-cover"
+          />
+        )}
+
         <div className="flex w-full flex-col px-2  ">
           <div className="flex gap-4 items-center">
             <span
-              className="px-2  text-[11px] font-extralight rounded-lg flex-1 outline-none"
+              className="px-2  text-[11px] font-extralight rounded-lg flex-1 "
               onClick={handleToggle}
               ref={popUp}
             >
