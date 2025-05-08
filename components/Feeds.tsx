@@ -1,108 +1,163 @@
 "use client";
-import { createClient } from "@/utils/supabase/client";
+
+import { useUserStore } from "@/lib/store/useStore";
 import Image from "next/image";
 import { useState } from "react";
-const supabase = createClient();
+import { FaHeart } from "react-icons/fa";
+import { FaRegHeart } from "react-icons/fa";
+import { FaCommentDots } from "react-icons/fa";
+import { FaShare } from "react-icons/fa";
+type FeedsProps = {
+  profile?: string;
+  postImage?: string[] | null;
+  postText?: string;
+};
 
-const getPosts = async () => {};
-
-const Feeds = () => {
+type FooterProps = {
+  comments?: string[];
+  likes?: string[];
+  shares?: string[];
+  views?: string[];
+  loves?: string[];
+  userLiked: boolean;
+};
+const Feeds = ({
+  profile,
+  postImage,
+  postText,
+  comments,
+  likes,
+  shares,
+  views,
+  loves,
+}: FeedsProps & FooterProps) => {
+  const { userId } = useUserStore();
+  const [userLiked, setUserLiked] = useState(false);
   return (
-    <div className="py-1 bg-card">
+    <div className="py-1 bg-card  px-3 rounded-xl my-3">
       {/* user */}
       <div className="flex justify-between items-center">
         <div className="py-3 flex items-center gap-4 text-secondary">
-          <Image
-            src={
-              "https://images.pexels.com/photos/31585393/pexels-photo-31585393/free-photo-of-smiling-man-in-casual-white-jacket-on-black-background.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
-            }
-            alt="31585393"
+          {/* <Image
+            src={profile}
+            alt={profile}
             height={40}
             width={40}
             className="rounded-full h-10 w-10 object-cover"
-          />
-          <span className="font-medium">{"props.title"}</span>
+          /> */}
+          <span className="font-medium ">{"props.title"}</span>
         </div>
         <span className=" text-2xl text-accent font-bold">...</span>
       </div>
       {/* des */}
       <div className="">
         <div className="w-full min-h-96 relative">
+          {/* demo */}
+
           <Image
             src={
-              "https://images.pexels.com/photos/31585132/pexels-photo-31585132/free-photo-of-romantic-indoor-engagement-celebration.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+              "https://images.pexels.com/photos/31442386/pexels-photo-31442386/free-photo-of-contemplative-moment-at-binh-thu-n-seaside.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
             }
             alt=""
             fill
-            className="object-cover rounded-md "
+            className="w-50 h-50 object-cover"
           />
+          {/* {postImage?.length ? (
+            <Image
+              src={postImage[0]}
+              alt={postImage[0]}
+              fill
+              className="object-cover rounded-md "
+            />
+          ) : (
+            <div></div>
+          )} */}
         </div>
-        <p className="text-primary-foreground">
-          Lorem Ipsum is simply dummy text of the printing and typesetting
-          industry. Lorem Ipsum has been the industry's standard dummy text ever
-          since the 1500s, when an unknown printer took a galley of type and
-          scrambled it to make a type specimen book. It has survived not only
-          five centuries, but also the leap into electronic typesetting,
-          remaining essentially unchanged. It was popularised in the 1960s with
-          the release of Letraset sheets containing Lorem Ipsum passages, and
-          more recently with desktop publishing software like Aldus PageMaker
-          including versions of Lorem Ipsum.
-        </p>
+        <p className="break-after-auto">{postText}</p>
       </div>
       {/* interaction */}
-      <FooterPost />
+      <FooterPost
+        likes={likes}
+        shares={shares}
+        views={views}
+        loves={loves}
+        comments={comments}
+        userLiked={userLiked}
+      />
     </div>
   );
 };
 
-const FooterPost = () => {
+const FooterPost = ({
+  userLiked,
+  comments = ["comment", "comment", "comment"],
+  likes = [
+    "like",
+    "like",
+    "like",
+    "like",
+    "like",
+    "like",
+    "like",
+    "like",
+    "like",
+    "like",
+  ],
+  shares = [
+    "share",
+    "share",
+    "share",
+    "share",
+    "share",
+    "share",
+    "share",
+    "share",
+    "share",
+    "share",
+  ],
+  views = [
+    "views",
+    "views",
+    "views",
+    "views",
+    "views",
+    "views",
+    "views",
+    "views",
+    "views",
+    "views",
+  ],
+  loves = [
+    "love",
+    "love",
+    "love",
+    "love",
+    "love",
+    "love",
+    "love",
+    "love",
+    "love",
+    "love",
+  ],
+}: FooterProps) => {
   return (
-    <div className="px-10 flex items-center  bg-accent p-1 rounded-sm justify-between text-sm">
-      <div className="flex  bg-accent gap-8 ">
-        <div className="flex  gap-4 rounded-2xl items-center">
-          <Image
-            src={"/like.png"}
-            alt="like"
-            width={16}
-            height={16}
-            className="cursor-pointer"
-          />
-          <span className="text-muted-foreground">|</span>
-          <span className="text-muted-foreground">
-            20
-            <span className="text-muted-foreground">Likes</span>
-          </span>
+    <div className="px-5 flex items-center  py-2 rounded-sm justify-between text-sm">
+      <div className="flex  bg-accent gap-8  align-end ">
+        <div className="flex  gap-2 rounded-2xl items-center">
+          {userLiked ? <FaHeart /> : <FaRegHeart />}
+          <span>{loves.length}</span>
+
+          <span className="text-muted-foreground">Likes</span>
+          <FaCommentDots color="text-muted-foreground" className="ml-5" />
+          <span>{comments.length}</span>
         </div>
         {/* here */}
-        <div className="flex items-center gap-4  rounded-2xl">
-          <Image
-            src={"/comment.png"}
-            alt="like"
-            width={16}
-            height={16}
-            className="cursor-pointer"
-          />
-          <span className="text-muted-foreground">|</span>
-          <span className="text-muted-foreground">
-            20
-            <span className="text-muted-foreground"> comments</span>
-          </span>
-        </div>
       </div>
 
       <div className="flex items-center gap-4  rounded-2xl ">
-        <Image
-          src={"/share.png"}
-          alt="like"
-          width={16}
-          height={16}
-          className="cursor-pointer"
-        />
-        <span>|</span>
-        <span className="text-muted-foreground">
-          20
-          <span className="text-muted-foreground"> share</span>
-        </span>
+        <FaShare />
+
+        <span>{shares.length}</span>
       </div>
     </div>
   );

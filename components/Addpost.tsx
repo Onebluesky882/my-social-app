@@ -5,7 +5,10 @@ import { PostCard } from "./widget/PostCard";
 import { createClient } from "@/utils/supabase/client";
 import { User } from "@supabase/auth-js";
 import { LoginForm } from "./widget/SingInForm";
-const Addpost = () => {
+
+type AddpostProp = { avatarUrl: string };
+
+const Addpost = ({ avatarUrl }: AddpostProp) => {
   const [toggle, setToggle] = useState(false);
   const [isUser, setIsUser] = useState<User | null>(null);
   const postCard = useRef<HTMLDivElement | null>(null);
@@ -64,12 +67,10 @@ const Addpost = () => {
 
   return (
     <>
-      <div className="p-4 my-2 flex justify-between bg-card pt-6 md:mt-14 max-sm:rounded-none rounded-2xl items-center">
+      <div className="p-4 my-2 flex justify-between bg-card pt-6 sm:mt-12  max-sm:rounded-none rounded-2xl items-center  ">
         {isUser ? (
           <Image
-            src={
-              "https://images.pexels.com/photos/31442386/pexels-photo-31442386/free-photo-of-contemplative-moment-at-binh-thu-n-seaside.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
-            }
+            src={avatarUrl}
             alt="woman"
             width={100}
             height={100}
@@ -77,10 +78,8 @@ const Addpost = () => {
           />
         ) : (
           <Image
-            src={
-              "https://images.pexels.com/photos/31442386/pexels-photo-31442386/free-photo-of-contemplative-moment-at-binh-thu-n-seaside.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
-            }
-            alt="woman"
+            src={"/avatar-1.png"}
+            alt="avatar"
             width={100}
             height={100}
             className=" w-8 h-8 rounded-full object-cover"

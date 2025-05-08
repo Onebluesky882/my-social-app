@@ -14,7 +14,7 @@ type UserProfileImage = Pick<Post["profiles"], "avatar_url">;
 
 const Navbar = () => {
   const { md } = useBreakpoint();
-  const { setUser, userId } = useUserStore();
+  const { setUser } = useUserStore();
   const supabase = createClient();
   const [avatarUrl, setAvatarUrl] = useState<UserProfileImage | null>(null);
 
@@ -43,7 +43,7 @@ const Navbar = () => {
   }, [setUser]);
 
   return (
-    <div className="fixed top-0  w-full z-999  border-b-1 border-b-white/10 shadow bg-gray-950/90">
+    <div className="fixed top-0  w-full z-999  border-b-1 border-b-white/10 shadow bg-gray-950">
       <div className=" flex grid-cols-4  mx-2 items-center  h-14 justify-between  gap-2  ">
         {/* left */}
         <LeftSection md={md} />

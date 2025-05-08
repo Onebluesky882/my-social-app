@@ -17,7 +17,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <head />
-      <body className="min-h-screen ">
+      <body className="flex flex-col min-h-screen ">
         <BreakpointProvider>
           <ThemeProvider
             attribute="class"
@@ -27,7 +27,7 @@ export default function RootLayout({
           >
             <Navbar />
 
-            <main className=" overflow-x-hidden   ">{children}</main>
+            <main className=" overflow-x-hidden flex-1 pb-20">{children}</main>
             <footer>
               <Footer />
             </footer>
