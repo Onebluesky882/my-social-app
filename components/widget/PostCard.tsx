@@ -82,10 +82,7 @@ export const PostCard = ({
     };
 
     if (content) {
-      const { data, error } = await supabase
-        .from("posts")
-        .insert(postData)
-        .select();
+      await supabase.from("posts").insert(postData).select();
 
       if (onClick) onClick();
     }

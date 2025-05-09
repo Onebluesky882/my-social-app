@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { FaHeart } from "react-icons/fa";
 import { FaRegHeart } from "react-icons/fa";
 import { FaCommentDots } from "react-icons/fa";
@@ -9,8 +9,6 @@ import { FaShare } from "react-icons/fa";
 import PostGridImages from "./widget/PostGridImages";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
-import { createClient } from "@/utils/supabase/client";
-import { Post } from "@/types/post-type";
 
 dayjs.extend(relativeTime);
 

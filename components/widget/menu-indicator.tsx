@@ -3,13 +3,11 @@
 import Link from "next/link";
 import { useState } from "react";
 import { FaHome, FaUser } from "react-icons/fa";
-import { usePathname } from "next/navigation";
 import { IoMdPhotos } from "react-icons/io";
 import { IoSettings } from "react-icons/io5";
 import { BiSolidMessageAltDetail } from "react-icons/bi";
 
 const MenuIndicator = () => {
-  const pathname = usePathname();
   const Menus = [
     {
       name: "Home",
