@@ -46,8 +46,8 @@ export default function FeedsRealtime({
           content={String(post.content)}
           createdAt={String(post.created_at)}
           imageUrls={post.image_urls ?? []}
-          avatar_url={post.profiles.avatar_url ?? "/avatar-1.png"}
-          name={post.profiles.name}
+          avatar_url={post.profiles?.avatar_url ?? "/avatar-1.png"}
+          name={post.profiles?.name}
         />
       ))}
     </div>

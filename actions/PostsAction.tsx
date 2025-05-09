@@ -8,8 +8,6 @@ export async function getPosts() {
     .select(`*, profiles(*)`)
     .order("created_at", { ascending: false });
 
-  if (error) console.error("Supabase error:", error);
-
   return data ?? [];
 }
 
@@ -23,8 +21,6 @@ export async function getProfiles() {
     .from("profiles")
     .select()
     .eq("id", user?.id as string);
-
-  if (error) console.error("Supabase error:", error);
 
   return data;
 }

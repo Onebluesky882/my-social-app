@@ -1,6 +1,5 @@
 import { getPosts, getProfiles } from "@/actions/PostsAction";
 import FeedsRealtime from "@/client-Render/FeedLists";
-import FeedsList from "@/client-Render/FeedLists";
 import AddPost from "@/components/Addpost";
 import Feeds from "@/components/FeedCard";
 import StorySection from "@/components/section/StorySection";
