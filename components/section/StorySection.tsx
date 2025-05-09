@@ -3,10 +3,11 @@ import { turnCutText } from "@/lib/utils";
 import Image from "next/image";
 const StorySection = ({ avatarProfile }: { avatarProfile: string }) => {
   return (
-    <div className="flex w-full  gap-2 overflow-x-auto no-scrollbar  scroll-smooth bg-black/90  pt-2 rounded-sm">
-      <div className="flex gap-2 min-w-max px-4 ">
+    <div className="flex w-full  gap-2 overflow-x-auto no-scrollbar  scroll-smooth bg-black/90  pt-2 rounded-sm ">
+      <div className="flex gap-3 pl-4 pr-4">
         <CreateStory avatarProfile={avatarProfile} />
         <DemoStoryFriend />
+        <div className="shrink-0 w-4" />
       </div>
     </div>
   );
@@ -35,7 +36,7 @@ const CreateStory = ({ avatarProfile }: { avatarProfile: string }) => {
 };
 const StoryFriend = ({ src, name }: { src: string } & { name: string }) => {
   return (
-    <div className="flex flex-col relative  h-[160px] w-[100px] mb-2 rounded-md   bg-white/8 backdrop-blur-md shadow-md ">
+    <div className="flex flex-col relative  h-[160px] w-[100px] mb-2  rounded-md   bg-white/8 backdrop-blur-md shadow-md ">
       <div className="h-full relative justify-center flex">
         <Image src={src} alt="" fill className="rounded-md object-cover" />
         <p className=" absolute mx-2 bottom-1 text-center text-white wrap-break-word  text-[10px] ">

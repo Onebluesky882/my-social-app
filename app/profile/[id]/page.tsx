@@ -1,5 +1,5 @@
 import Addpost from "@/components/Addpost";
-import Feeds from "@/components/Feeds";
+import Feeds from "@/components/FeedCard";
 
 const page = () => {
   return <div></div>;

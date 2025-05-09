@@ -1,10 +1,19 @@
 export type Post = {
-  id: number;
-  content: string;
-  image_urls: string[];
-  user_id?: string;
-  profiles: Profiles;
+  profiles: any;
+  content?: string | null;
+  created_at?: string;
+  id?: string;
+  image_urls?: string[] | null;
+  user_id?: string | null;
 };
 export type Profiles = {
-  avatar_url: string;
+  avatar_url: string | null;
+  comments: string | null;
+  created_at: string;
+  email: string | null;
+  friends_id: string | null;
+  id: string;
+  likes: string | null;
+  name: string | null;
+  posts: string | null;
 };

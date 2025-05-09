@@ -1,84 +1,86 @@
 "use client";
 
-import { useUserStore } from "@/lib/store/useStore";
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FaHeart } from "react-icons/fa";
 import { FaRegHeart } from "react-icons/fa";
 import { FaCommentDots } from "react-icons/fa";
 import { FaShare } from "react-icons/fa";
-type FeedsProps = {
-  profile?: string;
-  postImage?: string[] | null;
-  postText?: string;
-};
+import PostGridImages from "./widget/PostGridImages";
+import dayjs from "dayjs";
+import relativeTime from "dayjs/plugin/relativeTime";
+import { createClient } from "@/utils/supabase/client";
+import { Post } from "@/types/post-type";
 
+dayjs.extend(relativeTime);
+
+type FeedsPostProps = {
+  content: string | null;
+  createdAt: string;
+  imageUrls: string[] | null;
+  userId?: string | null;
+};
+type ProfileProps = {
+  avatar_url: string;
+  name: string;
+};
 type FooterProps = {
   comments?: string[];
   likes?: string[];
   shares?: string[];
   views?: string[];
   loves?: string[];
-  userLiked: boolean;
+  userLiked?: boolean;
 };
 const Feeds = ({
-  profile,
-  postImage,
-  postText,
+  avatar_url,
+  content,
+  createdAt,
+  imageUrls,
+  name,
   comments,
   likes,
+  loves,
   shares,
   views,
-  loves,
-}: FeedsProps & FooterProps) => {
+}: FeedsPostProps & ProfileProps & FooterProps) => {
   const [userLiked, setUserLiked] = useState(false);
+
   return (
-    /* 
-    array friend belong with profile
-      1. map post table 
-    
-    
-    */
-    <div className="py-1 bg-card  px-3   my-3">
+    <div className="py-1 bg-card  px-3   my-3 rounded-sm">
       {/* user */}
+
       <div className="flex justify-between items-center">
         <div className="py-3 flex items-center gap-4 text-secondary">
           <Image
-            src={"/avatar-1.png"}
+            src={avatar_url}
             alt={""}
             height={40}
             width={40}
             className="rounded-full h-10 w-10 object-cover"
           />
-          <span className="font-medium ">{"props.title"}</span>
+          <div>
+            <h2 className="text-gray-100">{name}</h2>
+            <p className="text-[12px] text-gray-100/50 ">
+              {" "}
+              {dayjs(createdAt).fromNow()}
+            </p>
+          </div>
         </div>
         <span className=" text-2xl text-accent font-bold">...</span>
       </div>
       {/* des */}
       <div className="">
-        <div className="w-full min-h-96 relative">
+        <div
+          className={`${
+            imageUrls?.length ? "flex" : "hidden"
+          } w-full min-h-96 relative`}
+        >
           {/* demo */}
-
-          <Image
-            src={
-              "https://images.pexels.com/photos/31442386/pexels-photo-31442386/free-photo-of-contemplative-moment-at-binh-thu-n-seaside.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
-            }
-            alt=""
-            fill
-            className="w-50 h-50 object-cover"
-          />
-          {/* {postImage?.length ? (
-            <Image
-              src={postImage[0]}
-              alt={postImage[0]}
-              fill
-              className="object-cover rounded-md "
-            />
-          ) : (
-            <div></div>
-          )} */}
+          {imageUrls?.length &&
+            imageUrls.map((image) => <PostGridImages images={[image]} />)}
         </div>
-        <p className="break-after-auto">{postText}</p>
+        <p className="break-after-auto">{content}</p>
       </div>
       {/* interaction */}
       <FooterPost

@@ -4,34 +4,28 @@ type ImagesProps = {
   images: string[];
 };
 
-const PostImages = ({ images }: ImagesProps) => {
+const PostGridImages = ({ images }: ImagesProps) => {
   if (!images || images.length === 0) return null;
 
   const renderGridClass = () => {
-    switch (images.length) {
-      case 1:
-        return "grid-cols-1";
-      case 2:
-        return "grid-cols-2";
-      case 3:
-        return "grid-cols-3";
-      case 4:
-        return "grid-cols-4";
-      default:
-        return "grid-cols-3";
-    }
+    if (images.length === 1) return "grid-cols-1";
+    if (images.length === 2) return "grid-cols-2";
+    if (images.length <= 4) return "grid-cols-2";
+    return "grid-cols-3";
   };
+  const MAX_VISIBLE = 9;
+  const remaining = images.length - MAX_VISIBLE;
   return (
-    <div>
+    <div className={`grid gap-2 ${renderGridClass()}`}>
       {images.slice(0, 5).map((src, i) => (
         <div
           className="relative aspect-square overflow-hidden rounded-md"
           key={i}
         >
           <Image src={src} alt={`image${i}`} fill className="object-cover" />
-          {i === 4 && images.length > 5 && (
+          {i === MAX_VISIBLE - 1 && remaining > 0 && (
             <div className="absolute inset-0 bg-black/60 text-white flex items-center justify-center text-lg font-bold">
-              +{images.length - 5}
+              +{remaining}
             </div>
           )}
         </div>
@@ -39,4 +33,4 @@ const PostImages = ({ images }: ImagesProps) => {
     </div>
   );
 };
-export default PostImages;
+export default PostGridImages;

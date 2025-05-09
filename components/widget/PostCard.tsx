@@ -2,7 +2,7 @@
 import Image from "next/image";
 import { Card, CardContent, CardFooter } from "../ui/card";
 import { X } from "lucide-react";
-import { useState, ChangeEvent, Suspense } from "react";
+import { useState, ChangeEvent, Suspense, useEffect } from "react";
 import { createClient } from "@/utils/supabase/client";
 import { convertBlobUrlToFile } from "@/utils/convertBlobUrlFile";
 
@@ -30,17 +30,13 @@ export const PostCard = ({
 
   const handleSubmitContentWithImage = async () => {
     setLoading(true);
-    const start = performance.now();
 
     await handleSubmitContent();
-    const end = performance.now();
-    console.log(`Total submit time: ${(end - start).toFixed(2)}ms`);
+
     setLoading(false);
   };
 
   const handleSubmitContent = async () => {
-    const t0 = performance.now();
-
     const {
       data: { user },
     } = await supabase.auth.getUser();
@@ -48,12 +44,9 @@ export const PostCard = ({
     if (!user) {
       return;
     }
-    const t1 = performance.now();
 
-    console.log(`⏱ Get user T1-T0 : ${(t1 - t0).toFixed(2)}ms`);
     /* image upload */
 
-    const t2 = performance.now();
     let uploadedImageUrls: string[] = [];
     if (previewUrls.length > 0) {
       const options = {
@@ -79,8 +72,7 @@ export const PostCard = ({
       const results = await Promise.all(uploadPromises);
       uploadedImageUrls = results.filter((url): url is string => url !== null);
     }
-    const t3 = performance.now();
-    console.log(`⏱ Get user T3 -T2: ${(t3 - t2).toFixed(2)}ms`);
+
     /* ---------------- */
 
     const postData = {
@@ -88,7 +80,7 @@ export const PostCard = ({
       content: content,
       image_urls: uploadedImageUrls,
     };
-    const t4 = performance.now();
+
     if (content) {
       const { data, error } = await supabase
         .from("posts")
@@ -100,8 +92,6 @@ export const PostCard = ({
 
     setContent("");
     setPreviewUrls([]);
-    const t5 = performance.now();
-    console.log(`⏱ Get user T5-T4: ${(t5 - t4).toFixed(2)}ms`);
   };
 
   const handleRemoveUrl = (urlToRemove: string) => {

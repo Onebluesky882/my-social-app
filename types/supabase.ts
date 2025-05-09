@@ -95,6 +95,7 @@ export type Database = {
           friends_id: string | null
           id: string
           likes: string | null
+          name: string | null
           posts: string | null
         }
         Insert: {
@@ -105,6 +106,7 @@ export type Database = {
           friends_id?: string | null
           id: string
           likes?: string | null
+          name?: string | null
           posts?: string | null
         }
         Update: {
@@ -115,6 +117,7 @@ export type Database = {
           friends_id?: string | null
           id?: string
           likes?: string | null
+          name?: string | null
           posts?: string | null
         }
         Relationships: [

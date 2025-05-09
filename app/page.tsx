@@ -1,10 +1,13 @@
-import { getProfiles } from "@/actions/PostsAction";
+import { getPosts, getProfiles } from "@/actions/PostsAction";
+import FeedsRealtime from "@/client-Render/FeedLists";
+import FeedsList from "@/client-Render/FeedLists";
 import AddPost from "@/components/Addpost";
-import Feeds from "@/components/Feeds";
+import Feeds from "@/components/FeedCard";
 import StorySection from "@/components/section/StorySection";
 
 export default async function Home() {
   const profile = await getProfiles();
+  const posts = await getPosts();
 
   return (
     <div className=" grid grid-cols-4    max-sm:grid-cols-1  bg-background -mt-1  overflow-x-hidden">
@@ -23,26 +26,13 @@ export default async function Home() {
             <AddPost />
           </div>
         )}
-
         {profile?.map((avatar) => (
           <StorySection
+            key={avatar.id}
             avatarProfile={avatar.avatar_url as unknown as string}
           />
         ))}
-
-        <Feeds />
-
-        {/* post map */}
-
-        {
-          // <Feeds
-          //   props={{
-          //     id: 0,
-          //     title: "",
-          //     content: "",
-          //   }}
-          // />
-        }
+        <FeedsRealtime initialPosts={posts ?? []} />
       </div>
       <div className="hidden md:flex md:col-span-1 ">right</div>
     </div>

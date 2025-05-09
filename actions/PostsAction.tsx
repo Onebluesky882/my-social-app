@@ -3,11 +3,14 @@ import { createClient } from "@/utils/supabase/server";
 export async function getPosts() {
   const supabase = await createClient();
 
-  const { data, error } = await supabase.from("posts").select(`*, profiles(*)`);
+  const { data, error } = await supabase
+    .from("posts")
+    .select(`*, profiles(*)`)
+    .order("created_at", { ascending: false });
 
   if (error) console.error("Supabase error:", error);
 
-  return data;
+  return data ?? [];
 }
 
 export async function getProfiles() {
