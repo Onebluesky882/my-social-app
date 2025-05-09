@@ -8,16 +8,29 @@ export default async function Home() {
 
   return (
     <div className=" grid grid-cols-4    max-sm:grid-cols-1  bg-background -mt-1  overflow-x-hidden">
-      <div className="hidden md:flex  outline-1  md:col-span-1">left</div>
+      <div className="hidden md:flex md:col-span-1">left</div>
 
-      <div className=" sm:col-span-4 md:col-span-2  pt-5  max-sm:mt-8 outline-1 ">
+      <div className=" sm:col-span-4 md:col-span-2  pt-5  max-sm:mt-8  ">
+        {profile ? (
+          profile?.map((avatar) => (
+            <AddPost
+              key={avatar.id}
+              avatarUrl={avatar.avatar_url as unknown as string}
+            />
+          ))
+        ) : (
+          <div>
+            <AddPost />
+          </div>
+        )}
+
         {profile?.map((avatar) => (
-          <AddPost avatarUrl={avatar.avatar_url} />
+          <StorySection
+            avatarProfile={avatar.avatar_url as unknown as string}
+          />
         ))}
 
-        <StorySection />
-
-        {/* <Feeds /> */}
+        <Feeds />
 
         {/* post map */}
 

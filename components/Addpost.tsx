@@ -6,9 +6,12 @@ import { createClient } from "@/utils/supabase/client";
 import { User } from "@supabase/auth-js";
 import { LoginForm } from "./widget/SingInForm";
 
-type AddpostProp = { avatarUrl: string };
+type AddpostProp = {
+  avatarUrl?: string;
+  profileName?: string;
+};
 
-const Addpost = ({ avatarUrl }: AddpostProp) => {
+const Addpost = ({ avatarUrl, profileName }: AddpostProp) => {
   const [toggle, setToggle] = useState(false);
   const [isUser, setIsUser] = useState<User | null>(null);
   const postCard = useRef<HTMLDivElement | null>(null);
@@ -67,7 +70,7 @@ const Addpost = ({ avatarUrl }: AddpostProp) => {
 
   return (
     <>
-      <div className="p-4 my-2 flex justify-between bg-card pt-6 sm:mt-12  max-sm:rounded-none rounded-2xl items-center  ">
+      <div className="p-4 my-2 flex justify-between bg-card pt-6 sm:mt-12  max-sm:rounded-none rounded-2xl items-center max-sm:p-2 ">
         {isUser ? (
           <Image
             src={avatarUrl}
@@ -86,14 +89,14 @@ const Addpost = ({ avatarUrl }: AddpostProp) => {
           />
         )}
 
-        <div className="flex w-full flex-col px-2  ">
-          <div className="flex gap-4 items-center">
+        <div className="flex w-full flex-col px-2      ">
+          <div className="flex gap-4 items-center ">
             <span
-              className="px-2  text-[11px] font-extralight rounded-lg flex-1 "
+              className="px-2  text-[11px] font-extralight rounded-xl flex-1  bg-black/10  py-2 md:py-3"
               onClick={handleToggle}
               ref={popUp}
             >
-              What are you thinking
+              share your mind {profileName}
             </span>
 
             <div className="flex  gap-2 text-secondary">
@@ -105,15 +108,16 @@ const Addpost = ({ avatarUrl }: AddpostProp) => {
                 className=" self-end"
                 onClick={handleToggle}
               />
+              <Image
+                src={"/emoji.png"}
+                alt="emoji"
+                width={15}
+                height={15}
+                className=" self-end"
+                onClick={handleToggle}
+              />
             </div>
-            <Image
-              src={"/emoji.png"}
-              alt="emoji"
-              width={15}
-              height={15}
-              className=" self-end"
-              onClick={handleToggle}
-            />
+
             {/* text input */}
           </div>
         </div>

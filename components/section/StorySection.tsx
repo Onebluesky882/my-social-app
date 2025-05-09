@@ -1,24 +1,22 @@
 "use client";
 import { turnCutText } from "@/lib/utils";
 import Image from "next/image";
-const StorySection = () => {
+const StorySection = ({ avatarProfile }: { avatarProfile: string }) => {
   return (
     <div className="flex w-full  gap-2 overflow-x-auto no-scrollbar  scroll-smooth bg-black/90  pt-2 rounded-sm">
       <div className="flex gap-2 min-w-max px-4 ">
-        <CreateStory />
+        <CreateStory avatarProfile={avatarProfile} />
         <DemoStoryFriend />
       </div>
     </div>
   );
 };
-const CreateStory = () => {
+const CreateStory = ({ avatarProfile }: { avatarProfile: string }) => {
   return (
     <div className="relative h-[160px] w-[100px] rounded-md  -ml-2 bg-white/8 backdrop-blur-md shadow-md ">
       <div className="h-[120px] relative ">
         <Image
-          src={
-            "https://images.pexels.com/photos/31442386/pexels-photo-31442386/free-photo-of-contemplative-moment-at-binh-thu-n-seaside.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
-          }
+          src={avatarProfile}
           alt=""
           fill
           className="  rounded-t-md  object-cover"

@@ -5,18 +5,17 @@ import Image from "next/image";
 import { useUserStore } from "@/lib/store/useStore";
 import { useEffect, useState } from "react";
 import { createClient } from "@/utils/supabase/client";
-import { Post } from "@/types/post-type";
 import { IoSearch } from "react-icons/io5";
 import { useBreakpoint } from "@/lib/useBreakpoint";
 import { Input } from "./ui/input";
+import { Database } from "@/types/supabase";
 
-type UserProfileImage = Pick<Post["profiles"], "avatar_url">;
-
+type Profiles = Database["public"]["Tables"]["profiles"]["Row"];
 const Navbar = () => {
   const { md } = useBreakpoint();
   const { setUser } = useUserStore();
   const supabase = createClient();
-  const [avatarUrl, setAvatarUrl] = useState<UserProfileImage | null>(null);
+  const [avatarUrl, setAvatarUrl] = useState<Profiles | null>(null);
 
   useEffect(() => {
     const fetchUserAvatar = async () => {
@@ -35,7 +34,6 @@ const Navbar = () => {
           console.log("Error fetching avatar:", error.message);
         } else {
           setAvatarUrl(data);
-          console.log("data :", data);
         }
       }
     };

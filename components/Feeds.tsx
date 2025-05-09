@@ -31,20 +31,25 @@ const Feeds = ({
   views,
   loves,
 }: FeedsProps & FooterProps) => {
-  const { userId } = useUserStore();
   const [userLiked, setUserLiked] = useState(false);
   return (
-    <div className="py-1 bg-card  px-3 rounded-xl my-3">
+    /* 
+    array friend belong with profile
+      1. map post table 
+    
+    
+    */
+    <div className="py-1 bg-card  px-3   my-3">
       {/* user */}
       <div className="flex justify-between items-center">
         <div className="py-3 flex items-center gap-4 text-secondary">
-          {/* <Image
-            src={profile}
-            alt={profile}
+          <Image
+            src={"/avatar-1.png"}
+            alt={""}
             height={40}
             width={40}
             className="rounded-full h-10 w-10 object-cover"
-          /> */}
+          />
           <span className="font-medium ">{"props.title"}</span>
         </div>
         <span className=" text-2xl text-accent font-bold">...</span>
@@ -142,7 +147,7 @@ const FooterPost = ({
 }: FooterProps) => {
   return (
     <div className="px-5 flex items-center  py-2 rounded-sm justify-between text-sm">
-      <div className="flex  bg-accent gap-8  align-end ">
+      <div className="flex  gap-8  align-end ">
         <div className="flex  gap-2 rounded-2xl items-center">
           {userLiked ? <FaHeart /> : <FaRegHeart />}
           <span>{loves.length}</span>

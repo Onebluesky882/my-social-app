@@ -6,6 +6,5 @@ export type Post = {
   profiles: Profiles;
 };
 export type Profiles = {
-  email: string;
   avatar_url: string;
 };

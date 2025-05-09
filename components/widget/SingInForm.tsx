@@ -3,15 +3,20 @@ import { Card } from "../ui/card";
 import { Suspense } from "react";
 
 import { createClient } from "../../utils/supabase/client";
+import { redirect } from "next/navigation";
 
 export const LoginForm = ({ closePopup }: any) => {
   const handleSignin = async () => {
     const supabase = await createClient();
 
-    await supabase.auth.signInWithOAuth({
+    const { error } = await supabase.auth.signInWithOAuth({
       provider: "google",
       options: { redirectTo: `${location.origin}/auth/callback` },
     });
+    if (error) {
+      return error.message;
+    }
+    redirect("/");
   };
 
   return (
