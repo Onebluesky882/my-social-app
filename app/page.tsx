@@ -2,6 +2,7 @@ import { getPosts, getProfiles } from "@/actions/PostsAction";
 import FeedsRealtime from "@/client-Render/FeedLists";
 import AddPost from "@/components/Addpost";
 import StorySection from "@/components/section/StorySection";
+import { Post } from "@/types/post-type";
 
 export default async function Home() {
   const profile = await getProfiles();

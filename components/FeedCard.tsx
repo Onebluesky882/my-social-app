@@ -9,6 +9,8 @@ import { FaShare } from "react-icons/fa";
 import PostGridImages from "./widget/PostGridImages";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
+import { CustomSelect } from "./widget/CustomSelect";
+import { createClient } from "@/utils/supabase/client";
 
 dayjs.extend(relativeTime);
 
@@ -43,6 +45,17 @@ const Feeds = ({
   views,
 }: FeedsPostProps & ProfileProps & FooterProps) => {
   const [userLiked, setUserLiked] = useState(false);
+  const [option, setOption] = useState(false);
+  const toggleOption = () => {
+    setOption((prev) => !prev);
+  };
+
+  const handleOption = async (value: string) => {
+    if (value === "edit") {
+      const supabase = createClient();
+    }
+    if (value === "delete") console.log(value, "delete");
+  };
 
   return (
     <div className="py-1 bg-card  px-3   my-3 rounded-sm">
@@ -65,7 +78,20 @@ const Feeds = ({
             </p>
           </div>
         </div>
-        <span className=" text-2xl text-accent font-bold">...</span>
+        {/* // todo here */}
+        <span
+          onClick={toggleOption}
+          className="text-gray-400 mb-10 text-2xl text-accent font-bold"
+        >
+          {option ? (
+            <CustomSelect
+              options={["edit", "delete"]}
+              handleOption={handleOption}
+            />
+          ) : (
+            "..."
+          )}
+        </span>
       </div>
       {/* des */}
       <div className="">
@@ -167,4 +193,5 @@ const FooterPost = ({
     </div>
   );
 };
+
 export default Feeds;
