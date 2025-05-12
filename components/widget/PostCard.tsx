@@ -76,7 +76,7 @@ export const PostCard = ({
     /* ---------------- */
 
     const postData = {
-      user_id: user.id,
+      author_id: user.id,
       content: content,
       image_urls: uploadedImageUrls,
     };

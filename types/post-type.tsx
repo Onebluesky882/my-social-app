@@ -4,7 +4,7 @@ export type Post = {
   created_at?: string;
   id?: string;
   image_urls?: string[] | null;
-  user_id?: string | null;
+  author_id?: string | null;
 };
 export type Profiles = {
   avatar_url: string | null;

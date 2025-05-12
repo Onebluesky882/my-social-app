@@ -5,7 +5,7 @@ export async function getPosts() {
 
   const { data } = await supabase
     .from("posts")
-    .select(`id, created_at, content, image_urls, profiles(*)`)
+    .select(`* , profiles(*)`)
     .order("created_at", { ascending: false });
 
   return data ?? [];
@@ -25,7 +25,7 @@ export async function updatePost() {
       .from("posts")
       .update(updateContent)
       .eq("id", user.id)
-      .select(`id, content, image_urls, profiles('user_id')`);
+      .select("*, profiles(*)");
 
     return data ?? [];
   }
