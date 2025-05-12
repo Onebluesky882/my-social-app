@@ -5,6 +5,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { useEffect } from "react";
 import { BreakpointProvider } from "@/lib/useBreakpoint";
+import { Toaster } from "@/components/ui/sonner";
 
 export default function RootLayout({
   children,
@@ -31,6 +32,7 @@ export default function RootLayout({
             <footer>
               <Footer />
             </footer>
+            <Toaster />
           </ThemeProvider>
         </BreakpointProvider>
       </body>

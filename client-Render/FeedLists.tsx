@@ -37,7 +37,7 @@ export default function FeedsRealtime({
       supabase.removeChannel(channel);
     };
   }, []);
-
+  const handleUpdatePost = (postId: string, newContent: string) => {};
   return (
     <div className="space-y-4">
       {posts.map((post) => (
@@ -46,8 +46,16 @@ export default function FeedsRealtime({
           content={String(post.content)}
           createdAt={String(post.created_at)}
           imageUrls={post.image_urls ?? []}
-          avatar_url={post.profiles?.avatar_url ?? "/avatar-1.png"}
-          name={post.profiles?.name}
+          avatarUrl={post.profiles?.avatar_url ?? "/avatar-1.png"}
+          name={post.profiles?.name ?? "unknown"}
+          userId={post.user_id!}
+          postId={post.id!}
+          handleUpdatePost={function (
+            postId: string,
+            newContent: string
+          ): void {
+            throw new Error("Function not implemented.");
+          }}
         />
       ))}
     </div>
