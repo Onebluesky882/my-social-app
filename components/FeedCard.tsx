@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 import { FaHeart } from "react-icons/fa";
 import { FaRegHeart } from "react-icons/fa";
 import { FaCommentDots } from "react-icons/fa";
@@ -11,7 +11,6 @@ import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 import { CustomSelect } from "./widget/CustomSelect";
 import { IoIosCloseCircle } from "react-icons/io";
-import { toast } from "sonner";
 
 dayjs.extend(relativeTime);
 
@@ -115,7 +114,7 @@ const Feeds = ({
             </span>
           )}
           {option && (
-            <div className="relative cursor-pointer transition duration-300 ease hover:scale-110 z-50">
+            <div className="relative cursor-pointer transition duration-300 ease hover:scale-110 z-50 -mt-5">
               <IoIosCloseCircle
                 size={30}
                 onClick={() => {
