@@ -53,13 +53,7 @@ export default function FeedsRealtime({
   }, []);
 
   const handleUpdatePost = async (postId: string, newContent: string) => {
-    const { data: post, error: postError } = await supabase
-      .from("posts")
-      .select("author_id")
-      .eq("id", postId)
-      .single();
-
-    const { data, error } = await supabase
+    const { error } = await supabase
       .from("posts")
       .update({ content: newContent })
       .eq("id", postId)

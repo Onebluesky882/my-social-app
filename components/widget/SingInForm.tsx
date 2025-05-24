@@ -6,7 +6,6 @@ import { createClient } from "../../utils/supabase/client";
 import { redirect } from "next/navigation";
 
 export const LoginForm = ({ closePopup }: any) => {
-  void closePopup();
   const handleSignin = async () => {
     const supabase = await createClient();
 

@@ -19,17 +19,16 @@ const Addpost = ({ avatarUrl, profileName }: AddpostProp) => {
   const signInFormRef = useRef<HTMLDivElement | null>(null);
   const supabase = createClient();
 
-  const checkAuthUser = async () => {
-    const {
-      data: { user },
-    } = await supabase.auth.getUser();
-
-    if (user) {
-      setIsUser(user);
-    }
-  };
-
   useEffect(() => {
+    const checkAuthUser = async () => {
+      const {
+        data: { user },
+      } = await supabase.auth.getUser();
+
+      if (user) {
+        setIsUser(user);
+      }
+    };
     checkAuthUser();
 
     const closePopupOutside = (event: MouseEvent) => {
@@ -65,7 +64,7 @@ const Addpost = ({ avatarUrl, profileName }: AddpostProp) => {
   }, [toggle]);
 
   const handleToggle = () => {
-    setToggle((prev) => !prev);
+    setToggle(true);
   };
 
   return (

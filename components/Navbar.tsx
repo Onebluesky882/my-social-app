@@ -7,7 +7,6 @@ import { createClient } from "@/utils/supabase/client";
 import { IoSearch } from "react-icons/io5";
 import { useBreakpoint } from "@/lib/useBreakpoint";
 import { Input } from "./ui/input";
-import { Database } from "@/types/supabase";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -17,12 +16,15 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-
+import { Database } from "@/database.types";
+import { IoIosCloseCircle } from "react-icons/io";
+import { LoginForm } from "./widget/SingInForm";
 type Profiles = Database["public"]["Tables"]["profiles"]["Row"];
 const Navbar = () => {
   const { md } = useBreakpoint();
   const supabase = createClient();
   const [isUser, setIsUser] = useState<Profiles | null>(null);
+  const [login, setLogin] = useState(false);
 
   useEffect(() => {
     const fetchUserAvatar = async () => {
@@ -71,7 +73,7 @@ const Navbar = () => {
           <div className="max-sm:hidden flex items-center gap-2 xl:gap-8 justify-end  "></div>
         </div>
         {/* right section */}
-        <RightSection isUser={isUser} />
+        <RightSection isUser={isUser} login={login} setLogin={setLogin} />
       </div>
     </div>
   );
@@ -82,7 +84,7 @@ const LeftSection = ({ md }: any) => {
     <div className="flex gap-4 col-span-1 ">
       <div className=" flex">
         <Link href={"/"} className="font-bold text-2xl text-primary">
-          Facebook2
+          MySocials App
         </Link>
       </div>
 
@@ -101,7 +103,7 @@ const LeftSection = ({ md }: any) => {
   );
 };
 
-const RightSection = ({ isUser }: any) => {
+const RightSection = ({ isUser, login, setLogin }: any) => {
   return (
     <div className="flex col-span-1 items-center mt-1">
       <div className="  flex gap-3 items-center">
@@ -145,7 +147,7 @@ const RightSection = ({ isUser }: any) => {
             </DropdownMenuContent>
           </DropdownMenu>
         ) : (
-          <span className="relative">
+          <span className="relative" onClick={setLogin}>
             <Image
               src="/avatar-1.png"
               alt="Default Avatar"
@@ -153,6 +155,18 @@ const RightSection = ({ isUser }: any) => {
               height={30}
             />
           </span>
+        )}
+        {login && (
+          <div className="  fixed  h-full z-30 w-full  inset-0 bg-background/80  flex items-center justify-center">
+            <div className="relative">
+              <IoIosCloseCircle
+                onClick={() => setLogin(false)}
+                className="absolute right-1 text-gray-600 top-1"
+                size={20}
+              />
+              <LoginForm />
+            </div>
+          </div>
         )}
       </div>
     </div>
