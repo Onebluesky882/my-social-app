@@ -15,7 +15,7 @@ export default function FeedsRealtime({
   const [buttonEditing, setButtonEditing] = useState(false);
   const [textBoxEdit, setTextBoxEdit] = useState("");
   const [editingPostId, setEditingPostId] = useState<string | null>(null);
-  const [isEditing, setIsEditing] = useState(false);
+  const [_isEditing, setIsEditing] = useState(false);
   const supabase = createClient();
   const [user, setUser] = useState<string | null>(null);
   useEffect(() => {

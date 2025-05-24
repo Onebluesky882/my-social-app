@@ -37,8 +37,8 @@ const InsertPhotoWidget = ({
 
   return (
     <>
-      <div className="flex gap-2 justify-center">
-        <Images className="text-gray-500  " />
+      <div className="flex gap-2 justify-center  ">
+        <Images className="text-gray-500 " />
         <input
           ref={ref}
           type="file"
@@ -46,7 +46,9 @@ const InsertPhotoWidget = ({
           hidden
           onChange={handleFileChange}
         />
-        <span onClick={handleInput}>อัพโหลดรูป</span>
+        <span onClick={handleInput} className="font-light text-[12px] ">
+          อัพโหลดรูป
+        </span>
 
         <div className="absolute -translate-full left-[75%]">
           <CircleX onClick={handleCloseX} />
@@ -64,7 +66,7 @@ export const PreviewImage = ({
   removeImage: (url: string) => void;
 }) => {
   return (
-    <div className="flex gap-2">
+    <div className="flex gap-2  ">
       {previewUrls.map((url, index) => (
         <div key={index} className="relative flex">
           <Image
@@ -73,7 +75,7 @@ export const PreviewImage = ({
             key={index}
             width={80}
             height={80}
-            className="object-contain "
+            className="object-contain rounded-sm "
           />
 
           <IoIosCloseCircle

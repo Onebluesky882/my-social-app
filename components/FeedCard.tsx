@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FaHeart } from "react-icons/fa";
 import { FaRegHeart } from "react-icons/fa";
 import { FaCommentDots } from "react-icons/fa";
@@ -82,7 +82,7 @@ const Feeds = ({
     if (value === "delete") {
     }
   };
-
+  console.log("imageUrls :", imageUrls);
   const isOwner = userId === authorId;
   return (
     <div className="py-1 bg-card  px-3   my-3 rounded-sm ">
@@ -140,8 +140,10 @@ const Feeds = ({
           } w-full min-h-96 relative`}
         >
           {/* demo */}
-          {imageUrls?.length &&
-            imageUrls.map((image) => <PostGridImages images={[image]} />)}
+
+          {imageUrls && imageUrls.length > 0 && (
+            <PostGridImages images={imageUrls} />
+          )}
         </div>
       </div>
       {isEditing ? (

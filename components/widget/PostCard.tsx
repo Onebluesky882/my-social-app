@@ -1,14 +1,15 @@
 "use client";
 import Image from "next/image";
 import { Card, CardContent, CardFooter } from "../ui/card";
-import { X } from "lucide-react";
 import { useState, ChangeEvent, Suspense, useEffect } from "react";
 import { createClient } from "@/utils/supabase/client";
 import { convertBlobUrlToFile } from "@/utils/convertBlobUrlFile";
 
 import imageCompression from "browser-image-compression";
-import InsertPhotoWidget, { PreviewImage } from "./insertPhotoWidget";
 import Spinner from "../iconSVG/spinner";
+import { IoIosCloseCircle } from "react-icons/io";
+import { PreviewImage } from "./insertPhotoWidget";
+import InsertPhotoWidget from "./insertPhotoWidget";
 
 export type PostCardProps = {
   closePopup?: () => void;
@@ -88,7 +89,6 @@ export const PostCard = ({
     }
 
     setContent("");
-    setPreviewUrls([]);
   };
 
   const handleRemoveUrl = (urlToRemove: string) => {
@@ -118,19 +118,21 @@ export const PostCard = ({
   };
 
   return (
-    <Card className="  h-75 w-75 inset-0 z-40 flex items-center justify-center border-none">
+    <Card className="   w-75 inset-0 z-40 flex items-center justify-center border-none">
       <Suspense>
-        <div className="flex ">
+        <div className=" relative">
+          <span className="">
+            <IoIosCloseCircle className="absolute left-20" onClick={onClick} />
+          </span>
           <span className=" "> สร้างโพสต์</span>
-          <X onClick={onClick} />
         </div>
       </Suspense>
       <Suspense>
-        <CardContent className="">
-          <form onSubmit={handleSubmitForm}>
+        <CardContent className=" flex flex-col">
+          <form onSubmit={handleSubmitForm} className=" w-60">
             <textarea
               placeholder="แชร์เรื่องราวของคุณ"
-              className=" w-full outline-1 rounded py-2"
+              className=" w-full outline-1 rounded py-2 placeholder:font-light  placeholder:text-[10px] placeholder:px-1 placeholder:pt-1 font-light text-sm "
               value={content}
               onChange={handleContentChange}
               onKeyDown={handleKeyDown}
@@ -147,7 +149,7 @@ export const PostCard = ({
 
       <Suspense>
         {uploadPhoto && (
-          <CardContent className="bg-secondary opacity-55 py-10">
+          <CardContent className="bg-secondary opacity-55 py-10  border-dotted border-1 border-gray-500 rounded-sm ">
             <div>
               <InsertPhotoWidget
                 setInsertPhoto={setUploadPhoto}
@@ -158,8 +160,7 @@ export const PostCard = ({
         )}
       </Suspense>
       <Suspense>
-        <CardFooter className=" flex justify-between  ">
-          <span>เพิ่มลงโพสต์</span>
+        <CardFooter className=" flex flex-col justify-between  ">
           <IconElement setInsertPhoto={setUploadPhoto} />
         </CardFooter>
       </Suspense>
@@ -174,7 +175,7 @@ export const PostCard = ({
         {loading ? (
           <Spinner />
         ) : (
-          <span className="text-foreground">เพิ่มโพส</span>
+          <span className="text-foreground font-light text-sm">เพิ่มโพส</span>
         )}
       </button>
       {/*  */}

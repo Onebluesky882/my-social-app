@@ -64,7 +64,7 @@ const Navbar = () => {
   }, []);
 
   return (
-    <div className="fixed top-0  w-full z-999  border-b-1 border-b-white/10 shadow bg-gray-950">
+    <div className="fixed top-0  w-full z-999  border-b-1 border-b-white/10  bg-gray-950">
       <div className=" flex grid-cols-4  mx-2 items-center  h-14 justify-between  gap-2  ">
         {/* left */}
         <LeftSection md={md} />

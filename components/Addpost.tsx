@@ -73,7 +73,7 @@ const Addpost = ({ avatarUrl, profileName }: AddpostProp) => {
         {isUser ? (
           <Image
             src={String(avatarUrl)}
-            alt="woman"
+            alt=""
             width={100}
             height={100}
             className=" w-8 h-8 rounded-full object-cover"
@@ -125,7 +125,7 @@ const Addpost = ({ avatarUrl, profileName }: AddpostProp) => {
         <div className=" fixed  h-full z-30 w-full  inset-0 bg-background/80  flex items-center justify-center">
           <div ref={isUser ? postCard : signInFormRef}>
             {isUser ? (
-              <PostCard closePopup={handleToggle} />
+              <PostCard closePopup={() => setToggle(false)} />
             ) : (
               <LoginForm closePopup={handleToggle} />
             )}
