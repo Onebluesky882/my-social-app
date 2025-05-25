@@ -4,7 +4,7 @@ This is a production-ready social media web app built with Next.js and Supabase.
 
 ## 🚀 Live Demo
 
-👉 [[https://your-app.vercel.app](https://web-boardmvp.vercel.app/)] 
+👉 [[https://your-app.vercel.app](https://web-boardmvp.vercel.app)] 
 
 ## 🔧 Tech Stack
 
