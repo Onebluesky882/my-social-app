@@ -69,7 +69,7 @@ const Addpost = ({ avatarUrl, profileName }: AddpostProp) => {
 
   return (
     <>
-      <div className="p-4 my-2 flex justify-between bg-card pt-6 sm:mt-12 rounded-sm items-center max-sm:p-2 ">
+      <div className="cursor-pointer p-4 my-2 flex justify-between bg-card pt-6 sm:mt-12 rounded-sm items-center max-sm:p-2 ">
         {isUser ? (
           <Image
             src={String(avatarUrl)}

@@ -155,7 +155,10 @@ const RightSection = ({
             </DropdownMenuContent>
           </DropdownMenu>
         ) : (
-          <span className="relative" onClick={() => setLogin}>
+          <span
+            className="cursor-pointer relative"
+            onClick={() => setLogin(true)}
+          >
             <Image
               src="/avatar-1.png"
               alt="Default Avatar"
