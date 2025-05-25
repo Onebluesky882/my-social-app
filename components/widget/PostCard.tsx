@@ -82,7 +82,7 @@ export const PostCard = ({
       image_urls: uploadedImageUrls,
     };
 
-    if (content) {
+    if (content.trim() !== "" || uploadedImageUrls.length > 0) {
       await supabase.from("posts").insert(postData).select();
 
       if (onClick) onClick();
