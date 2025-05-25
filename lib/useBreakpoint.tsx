@@ -39,12 +39,13 @@ export const BreakpointProvider = ({ children }: React.PropsWithChildren) => {
     };
 
     updateBreakpoints();
-
-    mediaQueryLists.forEach(([_, mql]) =>
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    mediaQueryLists.forEach(([_item, mql]) =>
       (mql as MediaQueryList).addEventListener("change", updateBreakpoints)
     );
     return () => {
-      mediaQueryLists.forEach(([_, mql]) =>
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      mediaQueryLists.forEach(([_item, mql]) =>
         (mql as MediaQueryList).removeEventListener("change", updateBreakpoints)
       );
     };

@@ -1,9 +1,10 @@
 "use client";
 import { createClient } from "@/utils/supabase/client";
+import { User } from "@supabase/supabase-js";
 import { useState, useEffect } from "react";
 
 const LeftMenu = () => {
-  const [user, setUser] = useState<any | null>(null); // Initialize as null to represent no user
+  const [user, setUser] = useState<User | null>(null); // Initialize as null to represent no user
   const supabase = createClient();
 
   useEffect(() => {
@@ -20,7 +21,7 @@ const LeftMenu = () => {
     };
 
     fetchUser();
-  }, [supabase]);
+  }, [user, supabase]);
 
   return (
     <div className="">

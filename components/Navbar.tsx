@@ -61,7 +61,7 @@ const Navbar = () => {
     return () => {
       authListener.subscription.unsubscribe();
     };
-  }, []);
+  }, [supabase]);
 
   return (
     <div className="fixed top-0  w-full z-999  border-b-1 border-b-white/10  bg-gray-950">
@@ -79,7 +79,7 @@ const Navbar = () => {
   );
 };
 
-const LeftSection = ({ md }: any) => {
+const LeftSection = ({ md }: { md: boolean }) => {
   return (
     <div className="flex gap-4 col-span-1 ">
       <div className=" flex">
@@ -103,7 +103,15 @@ const LeftSection = ({ md }: any) => {
   );
 };
 
-const RightSection = ({ isUser, login, setLogin }: any) => {
+const RightSection = ({
+  isUser,
+  login,
+  setLogin,
+}: {
+  isUser: Profiles | null;
+  login: boolean;
+  setLogin: React.Dispatch<React.SetStateAction<boolean>>;
+}) => {
   return (
     <div className="flex col-span-1 items-center mt-1">
       <div className="  flex gap-3 items-center">
@@ -119,7 +127,7 @@ const RightSection = ({ isUser, login, setLogin }: any) => {
             <DropdownMenuTrigger asChild>
               <button className="relative focus:outline-none">
                 <Image
-                  src={isUser.avatar_url}
+                  src={isUser.avatar_url as string}
                   alt="User Avatar"
                   width={36}
                   height={36}
@@ -147,7 +155,7 @@ const RightSection = ({ isUser, login, setLogin }: any) => {
             </DropdownMenuContent>
           </DropdownMenu>
         ) : (
-          <span className="relative" onClick={setLogin}>
+          <span className="relative" onClick={() => setLogin}>
             <Image
               src="/avatar-1.png"
               alt="Default Avatar"

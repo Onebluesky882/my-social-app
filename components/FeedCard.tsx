@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { FaHeart } from "react-icons/fa";
 import { FaRegHeart } from "react-icons/fa";
 import { FaCommentDots } from "react-icons/fa";
@@ -64,11 +64,9 @@ const Feeds = ({
   handleUpdatePost,
   isEditing,
   setEditingPostId,
-  setIsEditing,
   authorId,
   userId,
 }: FeedsPostProps & ProfileProps & FooterProps & UpdatePostProps) => {
-  const [userLiked, setUserLiked] = useState(false);
   const [option, setOption] = useState(false);
 
   // edit & delete button
@@ -181,7 +179,6 @@ const Feeds = ({
         views={views}
         loves={loves}
         comments={comments}
-        userLiked={userLiked}
       />
     </div>
   );
@@ -190,18 +187,7 @@ const Feeds = ({
 const FooterPost = ({
   userLiked,
   comments = ["comment", "comment", "comment"],
-  likes = [
-    "like",
-    "like",
-    "like",
-    "like",
-    "like",
-    "like",
-    "like",
-    "like",
-    "like",
-    "like",
-  ],
+
   shares = [
     "share",
     "share",
@@ -214,18 +200,7 @@ const FooterPost = ({
     "share",
     "share",
   ],
-  views = [
-    "views",
-    "views",
-    "views",
-    "views",
-    "views",
-    "views",
-    "views",
-    "views",
-    "views",
-    "views",
-  ],
+
   loves = [
     "love",
     "love",

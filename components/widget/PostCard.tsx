@@ -1,7 +1,7 @@
 "use client";
 import Image from "next/image";
 import { Card, CardContent, CardFooter } from "../ui/card";
-import { useState, ChangeEvent, Suspense, useEffect } from "react";
+import { useState, ChangeEvent, Suspense } from "react";
 import { createClient } from "@/utils/supabase/client";
 import { convertBlobUrlToFile } from "@/utils/convertBlobUrlFile";
 

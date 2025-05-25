@@ -61,7 +61,7 @@ const Addpost = ({ avatarUrl, profileName }: AddpostProp) => {
     return () => {
       document.removeEventListener("mousedown", closePopupOutside);
     };
-  }, [toggle]);
+  }, [toggle, isUser, supabase.auth]);
 
   const handleToggle = () => {
     setToggle(true);
@@ -127,7 +127,7 @@ const Addpost = ({ avatarUrl, profileName }: AddpostProp) => {
             {isUser ? (
               <PostCard closePopup={() => setToggle(false)} />
             ) : (
-              <LoginForm closePopup={handleToggle} />
+              <LoginForm />
             )}
           </div>
         </div>

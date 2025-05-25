@@ -5,7 +5,7 @@ import { Suspense } from "react";
 import { createClient } from "../../utils/supabase/client";
 import { redirect } from "next/navigation";
 
-export const LoginForm = ({ closePopup }: any) => {
+export const LoginForm = () => {
   const handleSignin = async () => {
     const supabase = await createClient();
 
