@@ -82,8 +82,9 @@ const Feeds = ({
     if (value === "delete") {
     }
   };
-  console.log("imageUrls :", imageUrls);
+
   const isOwner = userId === authorId;
+
   return (
     <div className="py-1 bg-card  px-3   my-3 rounded-sm ">
       {/* user */}
@@ -133,19 +134,16 @@ const Feeds = ({
       </div>
       {/* des */}
 
-      <div className="">
-        <div
-          className={`${
-            imageUrls?.length ? "flex" : "hidden"
-          } w-full min-h-96 relative`}
-        >
-          {/* demo */}
-
-          {imageUrls && imageUrls.length > 0 && (
-            <PostGridImages images={imageUrls} />
-          )}
-        </div>
+      <div
+        className={`${
+          imageUrls?.length ? "block" : "hidden"
+        } w-full  relative `}
+      >
+        {imageUrls && imageUrls.length > 0 && (
+          <PostGridImages images={imageUrls} />
+        )}
       </div>
+
       {isEditing ? (
         <div className="relative z-0">
           <textarea
@@ -171,7 +169,9 @@ const Feeds = ({
           </button>
         </div>
       ) : (
-        <p className="break-after-auto">{content}</p>
+        <p className="break-after-auto mt-3 font-light text-gray-300 text-sm ">
+          {content}
+        </p>
       )}
 
       {/* interaction */}

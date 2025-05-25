@@ -16,15 +16,21 @@ const PostGridImages = ({ images }: ImagesProps) => {
   const MAX_VISIBLE = 9;
   const remaining = images.length - MAX_VISIBLE;
   return (
-    <div className={`grid gap-2 ${renderGridClass()}`}>
-      {images.slice(0, 5).map((src, i) => (
+    <div className={`grid gap-2  ${renderGridClass()}`}>
+      {images.slice(0, MAX_VISIBLE).map((src, i) => (
         <div
-          className="relative aspect-square overflow-hidden rounded-md"
+          className="relative flex  overflow-hidden rounded-md justify-center"
           key={i}
         >
-          <Image src={src} alt={`image${i}`} fill className="object-cover" />
+          <Image
+            src={src}
+            alt={`image${i}`}
+            width={640}
+            height={200}
+            className="object-contain rounded-sm "
+          />
           {i === MAX_VISIBLE - 1 && remaining > 0 && (
-            <div className="absolute inset-0 bg-black/60 text-white flex items-center justify-center text-lg font-bold">
+            <div className=" absolute inset-0 bg-black/60 text-white flex items-center justify-center text-lg font-bold">
               +{remaining}
             </div>
           )}

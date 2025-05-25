@@ -3,16 +3,17 @@ import FeedsRealtime from "@/client-Render/FeedLists";
 import AddPost from "@/components/Addpost";
 import StorySection from "@/components/section/StorySection";
 import { Post } from "@/types/post-type";
+import Image from "next/image";
 
 export default async function Home() {
   const profile = await getProfiles();
   const posts = await getPosts();
 
   return (
-    <div className=" grid grid-cols-4    max-sm:grid-cols-1  bg-background -mt-1  overflow-x-hidden">
+    <div className=" grid grid-cols-4    max-sm:grid-cols-1  bg-background   overflow-x-hidden mx-1">
       <div className="hidden md:flex md:col-span-1">left</div>
 
-      <div className=" sm:col-span-4 md:col-span-2  pt-5  max-sm:mt-8  ">
+      <div className=" sm:col-span-4 md:col-span-2  pt-5  max-sm:mt-8 lg:mx-40 ">
         {profile ? (
           profile?.map((avatar) => (
             <AddPost

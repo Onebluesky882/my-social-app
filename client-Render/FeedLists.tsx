@@ -34,6 +34,7 @@ export default function FeedsRealtime({
         "postgres_changes",
         { event: "INSERT", schema: "public", table: "posts" },
         async (payload) => {
+          console.log("Real-time payload", payload.new);
           const { data, error } = await supabase
             .from("posts")
             .select("*, profiles(*)")
@@ -42,6 +43,23 @@ export default function FeedsRealtime({
 
           if (data) {
             setPosts((prev) => [data as Post, ...prev]);
+          }
+        }
+      )
+      .on(
+        "postgres_changes",
+        { event: "UPDATE", schema: "public", table: "posts" },
+        async (payload) => {
+          const { data } = await supabase
+            .from("posts")
+            .select("*, profiles(*)")
+            .eq("id", payload.new.id)
+            .single();
+
+          if (data) {
+            setPosts((prev) =>
+              prev.map((post) => (post.id === data.id ? data : post))
+            );
           }
         }
       )
